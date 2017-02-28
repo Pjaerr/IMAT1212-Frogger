@@ -1,11 +1,4 @@
-﻿  Vehicle.cpp
-c:\users\pjaer\desktop\frogger game\frogger\frogger\vehicle.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Source.cpp
-  Player.cpp
-c:\users\pjaer\desktop\frogger game\frogger\frogger\player.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+﻿  Player.cpp
   Game.cpp
-c:\users\pjaer\desktop\frogger game\frogger\frogger\game.h(2): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-c:\users\pjaer\desktop\frogger game\frogger\frogger\game.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Generating Code...
-Player.obj : error LNK2001: unresolved external symbol "public: static int Player::numOfLives" (?numOfLives@Player@@2HA)
-C:\Users\Pjaer\Desktop\Frogger Game\Frogger\Debug\Frogger.exe : fatal error LNK1120: 1 unresolved externals
+  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe

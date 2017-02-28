@@ -11,8 +11,9 @@ private:
 	void Movement();
 	
 public:
-	static int numOfLives;
+	int numOfLives;
 	sf::Sprite sprite;
+	Player();
 	Player(float movementSpeed, int numOfLives);
 	~Player();
 };

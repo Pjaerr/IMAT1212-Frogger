@@ -8,14 +8,26 @@ void Player::Movement()
 
 void Player::PlayerInstantiation()
 {
-	//Assign texture to player sprite in here.
+	if (!texture.loadFromFile("resources/frogTexture.png"))
+	{
+	}
+	else
+	{
+		sprite.setTexture(Player::texture);
+	}
+	
 }
 
+Player::Player()
+{
+	movementSpeed = 5;
+	numOfLives = 3;
+	PlayerInstantiation();
+}
 Player::Player(float movementSpeed, int numOfLives)
 {
-	/*Sets the player's default attributes on player object construction.*/
-	Player::movementSpeed = movementSpeed || 5;
-	Player::numOfLives = numOfLives || 3;
+	Player::movementSpeed = movementSpeed;
+	Player::numOfLives = numOfLives;
 	PlayerInstantiation();
 }
 
