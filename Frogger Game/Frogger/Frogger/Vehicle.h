@@ -5,15 +5,15 @@
 class Vehicle
 {
 private:
-	int direction;
-	float speed;
-	int size;
 	sf::Texture texture;
+	sf::Sprite sprite;
+	void Spawn(int direction, float speed, sf::Vector2f startingPos);
 	void VehicleInstantiation();
-	void Movement();
+	
 
 public:
-	sf::Sprite sprite;
+	sf::Sprite getSprite();
+	void Movement();
 	Vehicle();
 	~Vehicle();
 };

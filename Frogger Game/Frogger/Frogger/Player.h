@@ -5,14 +5,16 @@
 class Player
 {
 private:
-	float movementSpeed;
+	float movementSpeed; //Movement speed is multiplied by constant 0.01f.
 	sf::Texture texture;
+	sf::Sprite sprite;
 	void PlayerInstantiation();
-	void Movement();
+	
 	
 public:
 	int numOfLives;
-	sf::Sprite sprite;
+	sf::Sprite getSprite();
+	void Movement();
 	Player();
 	Player(float movementSpeed, int numOfLives);
 	~Player();

@@ -13,8 +13,29 @@ void Vehicle::Movement()
 
 void Vehicle::VehicleInstantiation()
 {
+	if (!texture.loadFromFile("resources/redCar.png"))
+	{
+	}
+	else 
+	{
+		sprite.setTexture(texture);
+	}
+
+	sprite.setPosition(0, 240); //Placeholder. Moves car to relevant pos.
+
 	/*Set a random speed, size, texture and direction here to the private variables relatively.*/
 	//For a random texture, to avoid performance hits, load the textures on the first vehicles construction to a texture array
+}
+
+void Vehicle::Spawn(int direction, float speed, sf::Vector2f startingPos)
+{
+	/*In here spawn a random sprite, initialize its values using what is passed in and return the sprite
+	which can then be drawn by the Game class and moved by the Movement function.*/
+}
+
+sf::Sprite Vehicle::getSprite()
+{
+	return sprite;
 }
 
 Vehicle::Vehicle()
