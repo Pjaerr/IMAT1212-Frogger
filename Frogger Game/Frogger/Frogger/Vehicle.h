@@ -1,19 +1,20 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include "SFML/Graphics.hpp"
 
 class Vehicle
 {
 private:
-	sf::Texture texture;
-	sf::Sprite sprite;
-	void Spawn(int direction, float speed, sf::Vector2f startingPos);
-	void VehicleInstantiation();
+	std::vector<sf::Texture> Textures;
+	std::vector<sf::Sprite> Sprites;
+	void Spawn(int maxSprites);
+	void VehicleInstantiation(int numOfTextures);
+	void Movement();
 	
 
 public:
-	sf::Sprite getSprite();
-	void Movement();
+	std::vector<sf::Sprite> getSprite();
 	Vehicle();
 	~Vehicle();
 };

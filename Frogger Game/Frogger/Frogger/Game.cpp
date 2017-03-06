@@ -10,16 +10,20 @@ void Game::RenderGame()
 
 	while (window.isOpen())											/*The Game loop used for rendering. Anything that fits within rendering	goes here. Mainly drawing.*/
 	{																/*It is the main game loop, but anything other than rendering can be placed in external methods.*/
+		/*Note to self, player movement is jerky, potential issue with event handling*/
 		EventHandling(window);
 		window.clear(sf::Color::Black);
-
-
+		
 		//Draw here.
 		window.draw(level);
 		window.draw(player.getSprite());
-		window.draw(vehicle.getSprite());
 
-
+		window.draw(vehicle.getSprite()[0]);
+		window.draw(vehicle.getSprite()[1]);
+		window.draw(vehicle.getSprite()[2]);
+		window.draw(vehicle.getSprite()[3]);
+		
+		
 		window.display();
 	}
 }
