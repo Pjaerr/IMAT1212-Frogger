@@ -8,8 +8,8 @@ class Vehicle
 private:
 	std::vector<sf::Texture> Textures;
 	std::vector<sf::Sprite> Sprites;
-	void Spawn(int maxSprites);
-	void VehicleInstantiation(int numOfTextures);
+	void Spawn(int numOfSprites, int numOfTextures);
+	void VehicleInstantiation(int numOfSprites, int numOfTextures);
 	void Movement();
 	
 

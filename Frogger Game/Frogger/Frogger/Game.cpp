@@ -58,9 +58,9 @@ void Game::InitializeLevel()
 	{
 		/*Sets the texture for the level initially and saves the window dimensions to a Vector2.
 		Scales the newly textured sprite to fit the aforementioned Vector2. This results in
-		the level sprite being the same size as the window, if the window changes these values 
+		the level sprite being the same size as the window, if the window changes these values
 		can be tweaked and the level object will scale nicely.*/
-		level.setTexture(Game::levelTexture);			
+		level.setTexture(Game::levelTexture);
 		sf::Vector2f windowDimensions(640.0f, 480.0f);
 		level.setScale(windowDimensions.x / level.getLocalBounds().width, windowDimensions.y / level.getLocalBounds().height);
 	}

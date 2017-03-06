@@ -1,19 +1,16 @@
 #include "Vehicle.h"
 
-
-/*NOTE TO SELF: Instead of, like in own documentation, having the game construct new vehicle objects for each vehicle
-make it so the one vehicle object is constructed, and that manages the spawning of new cars. This is so any resources
-that need to be used can be stored once on game start.*/
-
-
 void Vehicle::Movement()
 {
 
 }
 
-void Vehicle::VehicleInstantiation(int numOfTextures)
+/*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
+the textures that are to be used within the game and will store them in a Textures vector. It will then call the Spawn()
+method and pass in the number of sprites and textures so that the Spawn() method can allocate them to each other accordingly.*/
+void Vehicle::VehicleInstantiation(int numOfSprites, int numOfTextures)
 {
-	/*Set an array of textures here at start so that they can be pulled from in the 
+	/*Sets an array of textures here at start so that they can be pulled from in the 
 	Spawn() method when assigning textures.*/
 
 	Textures.resize(numOfTextures);
@@ -31,47 +28,56 @@ void Vehicle::VehicleInstantiation(int numOfTextures)
 	{
 	}
 
-
-	Spawn(4);
+	Spawn(numOfSprites, numOfTextures);
 }
 
-void Vehicle::Spawn(int maxSprites)
+/*The Spawn() method takes the number of sprites and assigned at instantiation. It then loops through the creation of the sprites 
+which includes a random texture from the Textures vector and a random direction between 0 and 1. (left and right respectively).
+It also positions the newly created sprites according to their direction. (ie. left facing sprite goes at the top right of the 
+road and right facing sprite the bottom left). It then passes off this newly created vector of sprites so that they can be used
+by the Movement() function and the Game class.*/
+void Vehicle::Spawn(int numOfSprites, int numOfTextures)
 {
-	/*Note to self: Make sure the texture allocation is random alongside the
-	direction allocation as opposed to temporary linear allocation.*/
+	
+	srand(time(0));		//The seed used to generate random numbers. time(0) is time passed since start of unix time.
 
-	int counter = 0;
-	std::vector<sf::Sprite> sprites;
-	std::vector<int> directions;
+	int counter = 0;		//Counter used for the iteration through the texture and direction allocation.
 
-	sprites.resize(sizeof(Textures));
-	directions.resize(sizeof(sprites));
+	std::vector<sf::Sprite> sprites;		//Local sprites vector.
+	std::vector<int> directions;			//Local directions vector.
+
+	sprites.resize(sizeof(Textures));	//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
+	directions.resize(sizeof(sprites));	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
 
 	do
 	{
-		sprites[counter].setTexture(Textures[0]);
-		directions[counter] = 0;
+		/*Sets the texture of the current sprite in the loop to a random value from within the Textures vector.*/
+		sprites[counter].setTexture(Textures[rand() % numOfTextures]);	
 
-		/*After placeholder values have been tested with, remember to set the position according to the 
+		directions[counter] = rand() % 2;		//Sets the direction to a random choice between 0 and 1.
+
+		/*NOTE TO SELF: After placeholder values have been tested with, remember to set the position according to the 
 		size of the window as the game will stretch to fit any resolution and so should the position
 		of the objects.*/
 
-		if (directions[counter] == 0)
+		if (directions[counter] == 0)		//direction == 0 is left.
 		{
-			sprites[counter].setPosition(440, 100);
-			sprites[counter].scale(-1.0f, 1.0f);
+			sprites[counter].setPosition(440, 140);			//Sets the position of the sprite to be at far right of the top road.
+			sprites[counter].scale(-1.0f, 1.0f);			//Flips the sprite to be facing left-wards.
+
+			/*Sets the origin of the sprite (where it is moved from) to the center of the image.*/
 			sprites[counter].setOrigin((sprites[counter].getPosition().x / 2), (sprites[counter].getPosition().y / 2));
 		}
-		else if (directions[counter] == 1)
+		else if (directions[counter] == 1)		//direction == 1 is right.
 		{
-			sprites[counter].setPosition(0, 240);
+			sprites[counter].setPosition(0, 240);		//Sets the position of the sprite to be at close left of the bottom road.
 		}
 
 		counter++;
 	} 
-	while (counter <= maxSprites);
+	while (counter <= numOfSprites);
 
-	Sprites = sprites;
+	Sprites = sprites;		//Assigning the local sprites vector to the global Sprites vector.
 	
 }
 
@@ -82,7 +88,7 @@ std::vector<sf::Sprite> Vehicle::getSprite()
 
 Vehicle::Vehicle()
 {
-	VehicleInstantiation(4);
+	VehicleInstantiation(4, 4);
 }
 
 Vehicle::~Vehicle()
