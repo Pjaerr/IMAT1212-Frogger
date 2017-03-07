@@ -1,8 +1,40 @@
 #include "Vehicle.h"
 
+
+float Vehicle::DeltaTime()
+{
+	sf::Clock clock;
+
+	for (;;)
+	{
+		sf::Time deltaTime = clock.restart();
+		return deltaTime.asSeconds();
+	}
+}
+
 void Vehicle::Movement()
 {
+	//0 to 440
 
+	/*NEED RENDERING TO BEGIN BEFORE MOVEMENT OF VEHICLES BEGINS AS THE RENDERING ONLY STARTS WHEN THE WHILE LOOP HAS ENDED
+	POSSIBLE SOLUTION IS MULTI-THREADING ALTHOUGH IT SHOULDN'T BE NEEDED.*/
+
+	for (int i = 0; i < sizeof(Sprites); i++)
+	{
+		std::cout << "Checking Sprite: " << i << std::endl;
+
+		if (Directions[i] == 1)
+		{
+			std::cout << "Moving Sprite: " << i << std::endl;
+
+			while (Sprites[i].getPosition().x < 440)
+			{
+				Sprites[i].move(1.0f, 0);
+			}
+		}
+	}
+	
+	
 }
 
 /*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
@@ -78,7 +110,9 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures)
 	while (counter <= numOfSprites);
 
 	Sprites = sprites;		//Assigning the local sprites vector to the global Sprites vector.
-	
+	Directions = directions;
+
+	//Movement(directions);
 }
 
 std::vector<sf::Sprite> Vehicle::getSprite()
@@ -88,7 +122,7 @@ std::vector<sf::Sprite> Vehicle::getSprite()
 
 Vehicle::Vehicle()
 {
-	VehicleInstantiation(4, 4);
+	VehicleInstantiation(4, 4);		//Makes the vectors 4 sprites and 4 textures large.
 }
 
 Vehicle::~Vehicle()

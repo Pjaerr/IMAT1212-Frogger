@@ -1,3 +1,5 @@
 ﻿  Vehicle.cpp
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(42): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(74): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Game.cpp
+  Generating Code...
   Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe

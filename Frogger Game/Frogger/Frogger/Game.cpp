@@ -23,9 +23,9 @@ void Game::RenderGame()
 		window.draw(vehicle.getSprite()[2]);
 		window.draw(vehicle.getSprite()[3]);
 		
-		
 		window.display();
 	}
+	
 }
 
 /*Any events not specific to rendering go inside of the EventHandling method.
@@ -41,6 +41,7 @@ void Game::EventHandling(sf::RenderWindow& window)
 		}
 	}
 
+	vehicle.Movement();
 	player.Movement();									/*Checks for player keyboard presses via Player::Movement();*/
 }
 
@@ -64,6 +65,8 @@ void Game::InitializeLevel()
 		sf::Vector2f windowDimensions(640.0f, 480.0f);
 		level.setScale(windowDimensions.x / level.getLocalBounds().width, windowDimensions.y / level.getLocalBounds().height);
 	}
+
+	
 }
 
 Game::Game()
