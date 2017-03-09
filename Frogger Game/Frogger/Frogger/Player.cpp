@@ -1,23 +1,54 @@
 #include "Player.h"
 
-/*Checks for relevant keyboard input and then moves this current object's sprite accordingly.*/
-void Player::Movement()
+/*The default constructor will set the player attributes by default.*/
+Player::Player()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	movementSpeed = 25.0f;
+	numOfLives = 3;
+	PlayerInstantiation();
+}
+
+/*The alternative constructor allows the person calling to set the player attributes.*/
+Player::Player(float movementSpeed, int numOfLives)
+{
+	Player::movementSpeed = movementSpeed;
+	Player::numOfLives = numOfLives;
+	PlayerInstantiation();
+}
+
+Player::~Player()
+{
+}
+
+/*Checks for relevant keyboard input via the sf::Event and then moves this current object's sprite by
+movementSpeed accordingly. Avoids constant movement by setting the isKeyDown boolean to false when a key is
+released and to true when a key is pressed and the initial movement has been carried out.*/
+void Player::Movement(sf::Event event)
+{
+	if (event.type == sf::Event::KeyPressed && isKeyDown == false)
 	{
-		sprite.move(0, (-0.01f * movementSpeed));
+		if (event.key.code == sf::Keyboard::Up)
+		{
+			sprite.move(0, -movementSpeed);
+		}
+		else if (event.key.code == sf::Keyboard::Down)
+		{
+			sprite.move(0, movementSpeed);
+		}
+		else if (event.key.code == sf::Keyboard::Left)
+		{
+			sprite.move(-movementSpeed, 0);
+		}
+		else if (event.key.code == sf::Keyboard::Right)
+		{
+			sprite.move(movementSpeed, 0);
+		}
+
+		isKeyDown = true;
 	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	else if (event.type == sf::Event::KeyReleased)
 	{
-		sprite.move((-0.01f * movementSpeed), 0);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-	{
-		sprite.move((0.01f * movementSpeed), 0);
-	}
-	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-	{
-		sprite.move(0, (0.01f * movementSpeed));
+		isKeyDown = false;
 	}
 }
 
@@ -37,27 +68,6 @@ void Player::PlayerInstantiation()
 	{
 		sprite.setTexture(Player::texture);
 	}
-	
+
 	sprite.setPosition(280, 380); //Placeholder setting starting pos.
-
-}
-
-/*The default constructor will set the player attributes by default.*/
-Player::Player()
-{
-	movementSpeed = 5;
-	numOfLives = 3;
-	PlayerInstantiation();
-}
-
-/*The alternative constructor allows the person calling to set the player attributes.*/
-Player::Player(float movementSpeed, int numOfLives)
-{
-	Player::movementSpeed = movementSpeed;
-	Player::numOfLives = numOfLives;
-	PlayerInstantiation();
-}
-
-Player::~Player()
-{
 }

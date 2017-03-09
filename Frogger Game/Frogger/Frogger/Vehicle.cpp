@@ -1,40 +1,10 @@
 #include "Vehicle.h"
 
-
-float Vehicle::DeltaTime()
-{
-	sf::Clock clock;
-
-	for (;;)
-	{
-		sf::Time deltaTime = clock.restart();
-		return deltaTime.asSeconds();
-	}
-}
-
 void Vehicle::Movement()
 {
-	//0 to 440
-
-	/*NEED RENDERING TO BEGIN BEFORE MOVEMENT OF VEHICLES BEGINS AS THE RENDERING ONLY STARTS WHEN THE WHILE LOOP HAS ENDED
-	POSSIBLE SOLUTION IS MULTI-THREADING ALTHOUGH IT SHOULDN'T BE NEEDED.*/
-
-	for (int i = 0; i < sizeof(Sprites); i++)
-	{
-		std::cout << "Checking Sprite: " << i << std::endl;
-
-		if (Directions[i] == 1)
-		{
-			std::cout << "Moving Sprite: " << i << std::endl;
-
-			while (Sprites[i].getPosition().x < 440)
-			{
-				Sprites[i].move(1.0f, 0);
-			}
-		}
-	}
-	
-	
+	/*When physics system is in place, make the sprite's velocity change according to frame time and the direction
+	they are facing found via Direction[] array. Would loop through each sprite and corresponding direction, moving them
+	as is relevant.*/
 }
 
 /*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
@@ -47,18 +17,14 @@ void Vehicle::VehicleInstantiation(int numOfSprites, int numOfTextures)
 
 	Textures.resize(numOfTextures);
 
-	if (!Textures[0].loadFromFile("resources/redCar.png"))
+
+	for (int i = 0; i < numOfTextures; i++)
 	{
+		if (!Textures[i].loadFromFile("resources/vehicletex/" + std::to_string(i) + ".png"))
+		{
+		}
 	}
-	if (!Textures[1].loadFromFile("resources/blueCar.png"))
-	{
-	}
-	if (!Textures[2].loadFromFile("resources/greenCar.png"))
-	{
-	}
-	if (!Textures[3].loadFromFile("resources/yellowCar.png"))
-	{
-	}
+	
 
 	Spawn(numOfSprites, numOfTextures);
 }
@@ -78,8 +44,8 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures)
 	std::vector<sf::Sprite> sprites;		//Local sprites vector.
 	std::vector<int> directions;			//Local directions vector.
 
-	sprites.resize(sizeof(Textures));	//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
-	directions.resize(sizeof(sprites));	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
+	sprites.resize(numOfSprites);	//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
+	directions.resize(numOfSprites);	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
 
 	do
 	{
@@ -107,12 +73,10 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures)
 
 		counter++;
 	} 
-	while (counter <= numOfSprites);
+	while (counter < numOfSprites);
 
-	Sprites = sprites;		//Assigning the local sprites vector to the global Sprites vector.
-	Directions = directions;
-
-	//Movement(directions);
+	Sprites = sprites;			//Assigning the local sprites vector to the global Sprites vector.
+	Directions = directions;	//Assigning the local directions vector to the global Directions vector.
 }
 
 std::vector<sf::Sprite> Vehicle::getSprite()

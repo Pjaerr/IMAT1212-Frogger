@@ -1,4 +1,5 @@
 #pragma once
+
 #include <iostream>
 #include <vector>
 #include "SFML/Graphics.hpp"
@@ -11,7 +12,6 @@ private:
 	std::vector<int> Directions;
 	void Spawn(int numOfSprites, int numOfTextures);
 	void VehicleInstantiation(int numOfSprites, int numOfTextures);
-	float DeltaTime();
 
 public:
 	std::vector<sf::Sprite> getSprite();

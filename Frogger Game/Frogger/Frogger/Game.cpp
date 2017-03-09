@@ -11,19 +11,19 @@ void Game::RenderGame()
 	while (window.isOpen())											/*The Game loop used for rendering. Anything that fits within rendering	goes here. Mainly drawing.*/
 	{																/*It is the main game loop, but anything other than rendering can be placed in external methods.*/
 		/*Note to self, player movement is jerky, potential issue with event handling*/
-		EventHandling(window);
 		window.clear(sf::Color::Black);
 		
-		//Draw here.
 		window.draw(level);
-		window.draw(player.getSprite());
+		window.draw(player.getSprite());	//Draws the returned player sprite.
 
-		window.draw(vehicle.getSprite()[0]);
-		window.draw(vehicle.getSprite()[1]);
-		window.draw(vehicle.getSprite()[2]);
-		window.draw(vehicle.getSprite()[3]);
+		for (int i = 0; i < vehicle.getSprite().size(); i++)	
+		{
+			window.draw(vehicle.getSprite()[i]);		//Draws each vehicle in the vehicle::Sprites[] vector.
+		}
 		
 		window.display();
+
+		EventHandling(window);
 	}
 	
 }
@@ -41,8 +41,8 @@ void Game::EventHandling(sf::RenderWindow& window)
 		}
 	}
 
+	player.Movement(event);
 	vehicle.Movement();
-	player.Movement();									/*Checks for player keyboard presses via Player::Movement();*/
 }
 
 void Game::StartGame()
