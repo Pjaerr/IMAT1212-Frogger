@@ -1,11 +1,4 @@
-﻿  Game.cpp
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(19): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Compiling...
-  Vehicle.cpp
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(40): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  Source.cpp
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\source.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Player.cpp
-  Generating Code...
+﻿  Vehicle.cpp
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(17): warning C4018: '<': signed/unsigned mismatch
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(64): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe

@@ -7,15 +7,17 @@
 class Vehicle
 {
 private:
-	std::vector<sf::Texture> Textures;
-	std::vector<sf::Sprite> Sprites;
-	std::vector<int> Directions;
-	void Spawn(int numOfSprites, int numOfTextures);
+	sf::Clock clock;	//Used to measure time to aid with the movement of the vehicles.
+	std::vector<sf::Texture> Textures;	//Holds all of the textures set during VehicleInstantiation().
+	std::vector<sf::Sprite> Sprites;	//Holds all of the sprites set during the Spawn().
+	std::vector<int> Directions;		//Holds all of the directions set during Spawn().
+	void Spawn(int numOfSprites, int numOfTextures, float distanceBetweenCars);	
 	void VehicleInstantiation(int numOfSprites, int numOfTextures);
+	bool finishedSpawning;
 
 public:
 	std::vector<sf::Sprite> getSprite();
-	void Movement();
+	void Movement(float movementSpeed);
 	Vehicle();
 	~Vehicle();
 };

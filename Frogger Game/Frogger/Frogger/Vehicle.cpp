@@ -1,10 +1,31 @@
 #include "Vehicle.h"
 
-void Vehicle::Movement()
+/*This is the function that moves the vehicles. It takes a movementSpeed float with which it will multiply by the time elapsed during the previous
+frame and then move each sprite in the Sprites[] vector by that value. This results in smooth movement for the vehicles as they are being moved
+along with the frame. Depending upon the direction of the sprite as per the Spawn() function, the movement will be carried out on negative or
+positive values.*/
+void Vehicle::Movement(float movementSpeed)
 {
-	/*When physics system is in place, make the sprite's velocity change according to frame time and the direction
-	they are facing found via Direction[] array. Would loop through each sprite and corresponding direction, moving them
-	as is relevant.*/
+	/*Grabs the elasped time since the game clock was last restarted and then 
+	assigns it as seconds to a float deltaTime. This acts as the time elapsed in
+	the previous frame.*/
+	sf::Time dt = clock.restart();
+	float deltaTime = dt.asSeconds();
+
+	for (int i = 0; i < Sprites.size(); i++)
+	{
+		if (Directions[i] == 0)
+		{
+			std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
+			Sprites[i].move((-movementSpeed * deltaTime), 0);
+		}
+		else if (Directions[i] == 1)
+		{
+			std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
+			Sprites[i].move((movementSpeed * deltaTime), 0);
+		}
+	}
+	
 }
 
 /*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
@@ -26,7 +47,7 @@ void Vehicle::VehicleInstantiation(int numOfSprites, int numOfTextures)
 	}
 	
 
-	Spawn(numOfSprites, numOfTextures);
+	Spawn(numOfSprites, numOfTextures, 140);
 }
 
 /*The Spawn() method takes the number of sprites and assigned at instantiation. It then loops through the creation of the sprites 
@@ -34,7 +55,7 @@ which includes a random texture from the Textures vector and a random direction 
 It also positions the newly created sprites according to their direction. (ie. left facing sprite goes at the top right of the 
 road and right facing sprite the bottom left). It then passes off this newly created vector of sprites so that they can be used
 by the Movement() function and the Game class.*/
-void Vehicle::Spawn(int numOfSprites, int numOfTextures)
+void Vehicle::Spawn(int numOfSprites, int numOfTextures, float distanceBetweenCars)
 {
 	
 	srand(time(0));		//The seed used to generate random numbers. time(0) is time passed since start of unix time.
@@ -44,7 +65,7 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures)
 	std::vector<sf::Sprite> sprites;		//Local sprites vector.
 	std::vector<int> directions;			//Local directions vector.
 
-	sprites.resize(numOfSprites);	//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
+	sprites.resize(numOfSprites);		//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
 	directions.resize(numOfSprites);	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
 
 	do
