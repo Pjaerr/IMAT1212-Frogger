@@ -16,12 +16,12 @@ void Vehicle::Movement(float movementSpeed)
 	{
 		if (Directions[i] == 0)
 		{
-			std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
+			//std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
 			Sprites[i].move((-movementSpeed * deltaTime), 0);
 		}
 		else if (Directions[i] == 1)
 		{
-			std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
+			//std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
 			Sprites[i].move((movementSpeed * deltaTime), 0);
 		}
 	}
@@ -47,7 +47,7 @@ void Vehicle::VehicleInstantiation(int numOfSprites, int numOfTextures)
 	}
 	
 
-	Spawn(numOfSprites, numOfTextures, 140);
+	Spawn(numOfSprites, numOfTextures, 2);
 }
 
 /*The Spawn() method takes the number of sprites and assigned at instantiation. It then loops through the creation of the sprites 
@@ -55,7 +55,7 @@ which includes a random texture from the Textures vector and a random direction 
 It also positions the newly created sprites according to their direction. (ie. left facing sprite goes at the top right of the 
 road and right facing sprite the bottom left). It then passes off this newly created vector of sprites so that they can be used
 by the Movement() function and the Game class.*/
-void Vehicle::Spawn(int numOfSprites, int numOfTextures, float distanceBetweenCars)
+void Vehicle::Spawn(int numOfSprites, int numOfTextures, int numOfRoads)
 {
 	
 	srand(time(0));		//The seed used to generate random numbers. time(0) is time passed since start of unix time.
@@ -68,6 +68,13 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures, float distanceBetweenCa
 	sprites.resize(numOfSprites);		//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
 	directions.resize(numOfSprites);	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
 
+	/*Holds the start position of the vehicles depending upon which road they are on. Roads go from top
+	to bottom as roadStartingPos[0]...roadStartingPos[1]*/
+	std::vector<float> roadStartingPos;
+	roadStartingPos.resize(numOfRoads);
+	roadStartingPos[0] = 440;	//Cars spawn at the far right of the road initially. 
+	roadStartingPos[1] = 0;		//Cars spawn at the far left of the road initially.
+
 	do
 	{
 		/*Sets the texture of the current sprite in the loop to a random value from within the Textures vector.*/
@@ -75,21 +82,22 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures, float distanceBetweenCa
 
 		directions[counter] = rand() % 2;		//Sets the direction to a random choice between 0 and 1.
 
-		/*NOTE TO SELF: After placeholder values have been tested with, remember to set the position according to the 
-		size of the window as the game will stretch to fit any resolution and so should the position
-		of the objects.*/
-
 		if (directions[counter] == 0)		//direction == 0 is left.
 		{
-			sprites[counter].setPosition(440, 140);			//Sets the position of the sprite to be at far right of the top road.
+			sprites[counter].setPosition(roadStartingPos[0], 140);			//Sets the position of the sprite to be at far right of the top road.
 			sprites[counter].scale(-1.0f, 1.0f);			//Flips the sprite to be facing left-wards.
 
 			/*Sets the origin of the sprite (where it is moved from) to the center of the image.*/
 			sprites[counter].setOrigin((sprites[counter].getPosition().x / 2), (sprites[counter].getPosition().y / 2));
+
+			roadStartingPos[0] = sprites[counter].getPosition().x + sprites[counter].getGlobalBounds().width;
+		
 		}
 		else if (directions[counter] == 1)		//direction == 1 is right.
 		{
-			sprites[counter].setPosition(0, 240);		//Sets the position of the sprite to be at close left of the bottom road.
+			
+			sprites[counter].setPosition(roadStartingPos[1], 240);		//Sets the position of the sprite to be at close left of the bottom road.
+			roadStartingPos[1] = sprites[counter].getPosition().x - sprites[counter].getGlobalBounds().width;
 		}
 
 		counter++;
