@@ -14,13 +14,24 @@ void Vehicle::Movement(float movementSpeed)
 
 	for (int i = 0; i < Sprites.size(); i++)
 	{
+		float leftMostPos = -Sprites[i].getGlobalBounds().width;
+		float rightMostPos = 440 + Sprites[i].getGlobalBounds().width;
+
 		if (Directions[i] == 0)
 		{
+			if (Sprites[i].getPosition().x < leftMostPos)
+			{
+				Sprites[i].setPosition(rightMostPos, Sprites[i].getPosition().y);
+			}
 			//std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
 			Sprites[i].move((-movementSpeed * deltaTime), 0);
 		}
 		else if (Directions[i] == 1)
 		{
+			if (Sprites[i].getPosition().x > rightMostPos)
+			{
+				Sprites[i].setPosition(leftMostPos, Sprites[i].getPosition().y);
+			}
 			//std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
 			Sprites[i].move((movementSpeed * deltaTime), 0);
 		}
