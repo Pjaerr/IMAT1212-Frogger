@@ -42,7 +42,7 @@ void Game::EventHandling(sf::RenderWindow& window)
 	}
 
 	player.Movement(event);
-	vehicle.Movement(50.0f);
+	vehicle.Movement(100.0f);
 }
 
 void Game::StartGame()

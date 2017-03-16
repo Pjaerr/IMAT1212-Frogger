@@ -15,7 +15,7 @@ void Vehicle::Movement(float movementSpeed)
 	for (int i = 0; i < Sprites.size(); i++)
 	{
 		float leftMostPos = -Sprites[i].getGlobalBounds().width;
-		float rightMostPos = 440 + Sprites[i].getGlobalBounds().width;
+		float rightMostPos = 580 + Sprites[i].getGlobalBounds().width;
 
 		if (Directions[i] == 0)
 		{
@@ -83,7 +83,7 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures, int numOfRoads)
 	to bottom as roadStartingPos[0]...roadStartingPos[1]*/
 	std::vector<float> roadStartingPos;
 	roadStartingPos.resize(numOfRoads);
-	roadStartingPos[0] = 440;	//Cars spawn at the far right of the road initially. 
+	roadStartingPos[0] = 580;	//Cars spawn at the far right of the road initially. 
 	roadStartingPos[1] = 0;		//Cars spawn at the far left of the road initially.
 
 	do
@@ -91,25 +91,28 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures, int numOfRoads)
 		/*Sets the texture of the current sprite in the loop to a random value from within the Textures vector.*/
 		sprites[counter].setTexture(Textures[rand() % numOfTextures]);	
 
-		directions[counter] = rand() % 2;		//Sets the direction to a random choice between 0 and 1.
-
-		if (directions[counter] == 0)		//direction == 0 is left.
+		if (counter < (numOfSprites / 2))
 		{
-			sprites[counter].setPosition(roadStartingPos[0], 140);			//Sets the position of the sprite to be at far right of the top road.
-			sprites[counter].scale(-1.0f, 1.0f);			//Flips the sprite to be facing left-wards.
+			directions[counter] = 0;
+
+			sprites[counter].scale(-1.0f, 1.0f);	//Flips the sprite to be facing left-wards.
 
 			/*Sets the origin of the sprite (where it is moved from) to the center of the image.*/
 			sprites[counter].setOrigin((sprites[counter].getPosition().x / 2), (sprites[counter].getPosition().y / 2));
 
+			sprites[counter].setPosition(roadStartingPos[0], 80);	//Sets the position of the sprite to be at far right of the top road.
+
 			roadStartingPos[0] = sprites[counter].getPosition().x + sprites[counter].getGlobalBounds().width;
-		
 		}
-		else if (directions[counter] == 1)		//direction == 1 is right.
+		else 
 		{
-			
-			sprites[counter].setPosition(roadStartingPos[1], 240);		//Sets the position of the sprite to be at close left of the bottom road.
+			directions[counter] = 1;
+			sprites[counter].setPosition(roadStartingPos[1], 240);	//Sets the position of the sprite to be at close left of the bottom road.
 			roadStartingPos[1] = sprites[counter].getPosition().x - sprites[counter].getGlobalBounds().width;
 		}
+
+
+		//directions[counter] = rand() % 2;		//Sets the direction to a random choice between 0 and 1.
 
 		counter++;
 	} 
@@ -126,7 +129,7 @@ std::vector<sf::Sprite> Vehicle::getSprite()
 
 Vehicle::Vehicle()
 {
-	VehicleInstantiation(4, 4);		//Makes the vectors 4 sprites and 4 textures large.
+	VehicleInstantiation(10, 4);		//Makes the vectors 4 sprites and 4 textures large.
 }
 
 Vehicle::~Vehicle()
