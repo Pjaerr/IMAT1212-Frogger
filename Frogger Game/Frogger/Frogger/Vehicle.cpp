@@ -23,7 +23,6 @@ void Vehicle::Movement(float movementSpeed)
 			{
 				Sprites[i].setPosition(rightMostPos, Sprites[i].getPosition().y);
 			}
-			//std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
 			Sprites[i].move((-movementSpeed * deltaTime), 0);
 		}
 		else if (Directions[i] == 1)
@@ -32,11 +31,9 @@ void Vehicle::Movement(float movementSpeed)
 			{
 				Sprites[i].setPosition(leftMostPos, Sprites[i].getPosition().y);
 			}
-			//std::cout << "Moving Sprite: " << i << " at " << (movementSpeed * deltaTime) << " speed" << std::endl;
 			Sprites[i].move((movementSpeed * deltaTime), 0);
 		}
 	}
-	
 }
 
 /*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
@@ -46,19 +43,15 @@ void Vehicle::VehicleInstantiation(int numOfSprites, int numOfTextures)
 {
 	/*Sets an array of textures here at start so that they can be pulled from in the 
 	Spawn() method when assigning textures.*/
-
 	Textures.resize(numOfTextures);
-
-
 	for (int i = 0; i < numOfTextures; i++)
 	{
 		if (!Textures[i].loadFromFile("resources/vehicletex/" + std::to_string(i) + ".png"))
 		{
 		}
 	}
-	
 
-	Spawn(numOfSprites, numOfTextures, 2);
+	Spawn(numOfSprites, numOfTextures, 3);
 }
 
 /*The Spawn() method takes the number of sprites and assigned at instantiation. It then loops through the creation of the sprites 
@@ -73,53 +66,68 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures, int numOfRoads)
 
 	int counter = 0;		//Counter used for the iteration through the texture and direction allocation.
 
-	std::vector<sf::Sprite> sprites;		//Local sprites vector.
-	std::vector<int> directions;			//Local directions vector.
+	std::vector<sf::Sprite> localSprites;		//Local sprites vector.
+	std::vector<int> localDirections;			//Local directions vector.
 
-	sprites.resize(numOfSprites);		//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
-	directions.resize(numOfSprites);	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
+	localSprites.resize(numOfSprites);		//Sets the size of the sprites vector to be that of the supplied numOfSprites value.
+	localDirections.resize(numOfSprites);	//Sets the size of the directions vector to be that of the number of elements in the sprites vector.
 
+
+	//NOTE TO SELF: ROADS ARE 100 PX APART
 	/*Holds the start position of the vehicles depending upon which road they are on. Roads go from top
 	to bottom as roadStartingPos[0]...roadStartingPos[1]*/
 	std::vector<float> roadStartingPos;
 	roadStartingPos.resize(numOfRoads);
 	roadStartingPos[0] = 580;	//Cars spawn at the far right of the road initially. 
 	roadStartingPos[1] = 0;		//Cars spawn at the far left of the road initially.
+	roadStartingPos[2] = 580;
 
 	do
 	{
 		/*Sets the texture of the current sprite in the loop to a random value from within the Textures vector.*/
-		sprites[counter].setTexture(Textures[rand() % numOfTextures]);	
+		localSprites[counter].setTexture(Textures[rand() % numOfTextures]);	
 
-		if (counter < (numOfSprites / 2))
+		if (counter < (numOfSprites - ))
 		{
-			directions[counter] = 0;
+			localDirections[counter] = 0;
 
-			sprites[counter].scale(-1.0f, 1.0f);	//Flips the sprite to be facing left-wards.
+			localSprites[counter].scale(-1.0f, 1.0f);	//Flips the sprite to be facing left-wards.
 
 			/*Sets the origin of the sprite (where it is moved from) to the center of the image.*/
-			sprites[counter].setOrigin((sprites[counter].getPosition().x / 2), (sprites[counter].getPosition().y / 2));
+			localSprites[counter].setOrigin((localSprites[counter].getPosition().x / 2), (localSprites[counter].getPosition().y / 2));
 
-			sprites[counter].setPosition(roadStartingPos[0], 80);	//Sets the position of the sprite to be at far right of the top road.
+			localSprites[counter].setPosition(roadStartingPos[0], 20);	//Sets the position of the sprite to be at far right of the top road.
 
-			roadStartingPos[0] = sprites[counter].getPosition().x + sprites[counter].getGlobalBounds().width;
+			/*The next cars' X position will be the position of the car just placed + the width of the car just placed.*/
+			roadStartingPos[0] = localSprites[counter].getPosition().x + localSprites[counter].getGlobalBounds().width;
 		}
-		else 
+		else if (counter < (numOfSprites / 2))
 		{
-			directions[counter] = 1;
-			sprites[counter].setPosition(roadStartingPos[1], 240);	//Sets the position of the sprite to be at close left of the bottom road.
-			roadStartingPos[1] = sprites[counter].getPosition().x - sprites[counter].getGlobalBounds().width;
+			localDirections[counter] = 1;
+			localSprites[counter].setPosition(roadStartingPos[1], 120);	//Sets the position of the sprite to be at close left of the bottom road.
+			roadStartingPos[1] = localSprites[counter].getPosition().x - localSprites[counter].getGlobalBounds().width;
 		}
+		else if (counter < (numOfSprites / 4))
+		{
+			localDirections[counter] = 0;
 
+			localSprites[counter].scale(-1.0f, 1.0f);	//Flips the sprite to be facing left-wards.
 
-		//directions[counter] = rand() % 2;		//Sets the direction to a random choice between 0 and 1.
+														/*Sets the origin of the sprite (where it is moved from) to the center of the image.*/
+			localSprites[counter].setOrigin((localSprites[counter].getPosition().x / 2), (localSprites[counter].getPosition().y / 2));
+
+			localSprites[counter].setPosition(roadStartingPos[2], 220);	//Sets the position of the sprite to be at far right of the top road.
+
+																		/*The next cars' X position will be the position of the car just placed + the width of the car just placed.*/
+			roadStartingPos[2] = localSprites[counter].getPosition().x + localSprites[counter].getGlobalBounds().width;
+		}
 
 		counter++;
 	} 
 	while (counter < numOfSprites);
 
-	Sprites = sprites;			//Assigning the local sprites vector to the global Sprites vector.
-	Directions = directions;	//Assigning the local directions vector to the global Directions vector.
+	Sprites = localSprites;			//Assigning the local sprites vector to the global Sprites vector.
+	Directions = localDirections;	//Assigning the local directions vector to the global Directions vector.
 }
 
 std::vector<sf::Sprite> Vehicle::getSprite()
@@ -129,7 +137,7 @@ std::vector<sf::Sprite> Vehicle::getSprite()
 
 Vehicle::Vehicle()
 {
-	VehicleInstantiation(10, 4);		//Makes the vectors 4 sprites and 4 textures large.
+	VehicleInstantiation(20, 4);		//Makes the vectors 4 sprites and 4 textures large.
 }
 
 Vehicle::~Vehicle()
