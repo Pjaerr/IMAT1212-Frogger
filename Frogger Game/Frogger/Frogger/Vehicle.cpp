@@ -87,7 +87,7 @@ void Vehicle::Spawn(int numOfSprites, int numOfTextures, int numOfRoads)
 		/*Sets the texture of the current sprite in the loop to a random value from within the Textures vector.*/
 		localSprites[counter].setTexture(Textures[rand() % numOfTextures]);	
 
-		if (counter < (numOfSprites - ))
+		if (counter < (numOfSprites / 4))
 		{
 			localDirections[counter] = 0;
 

@@ -15,7 +15,7 @@ object. If something is to effect the window that isn't a specific event, it wil
 void Game::RenderGame()
 {
 	/*Assigning a value to the RenderWindow *window pointer created in the header file.*/
-	window = new sf::RenderWindow(sf::VideoMode(640, 480), "Frogger");
+	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Frogger");
 																			
 	/*The Game loop used for rendering. Anything that fits within rendering	goes here.
 	Mainly drawing.It is the main game loop, but anything other than rendering can be placed in external methods.*/
@@ -63,7 +63,7 @@ void Game::StartGame()
 
 void Game::InitializeLevel()
 {
-	if (!levelTexture.loadFromFile("resources/levelTextureNew.png"))
+	if (!levelTexture.loadFromFile("resources/levelTexture.png"))
 	{
 	}
 	else
@@ -73,7 +73,7 @@ void Game::InitializeLevel()
 		the level sprite being the same size as the window, if the window changes these values
 		can be tweaked and the level object will scale nicely.*/
 		level.setTexture(levelTexture);
-		sf::Vector2f windowDimensions(640.0f, 480.0f);
+		sf::Vector2f windowDimensions(1024.0f, 768.0f);
 		level.setScale(windowDimensions.x / level.getLocalBounds().width, windowDimensions.y / level.getLocalBounds().height);
 	}
 }
