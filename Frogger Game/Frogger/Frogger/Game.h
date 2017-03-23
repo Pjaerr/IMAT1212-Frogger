@@ -6,6 +6,7 @@
 class Game
 {
 private:
+	sf::Vector2f windowDimensions;
 	sf::RenderWindow * window;	//RenderWindow object as a pointer. Value is assigned in RenderGame().
 	sf::Texture levelTexture;	//The main texture used as the background of the game.
 	sf::Sprite level;			//Sprite that holds the background texture and that is drawn to the screen.

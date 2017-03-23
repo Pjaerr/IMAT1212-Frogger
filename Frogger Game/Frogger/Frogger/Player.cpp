@@ -3,7 +3,7 @@
 /*The default constructor will set the player attributes by default.*/
 Player::Player()
 {
-	movementSpeed = 25.0f;
+	movementSpeed = 45.0f;
 	numOfLives = 3;
 	PlayerInstantiation();
 }
@@ -69,5 +69,5 @@ void Player::PlayerInstantiation()
 		sprite.setTexture(Player::texture);
 	}
 
-	sprite.setPosition(280, 380); //Placeholder setting starting pos.
+	sprite.setPosition(480, 680); //Placeholder setting starting pos.
 }

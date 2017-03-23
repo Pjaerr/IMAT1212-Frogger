@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include "SFML/Graphics.hpp"
-#include "Vehicle.h"
 
 class Player
 {

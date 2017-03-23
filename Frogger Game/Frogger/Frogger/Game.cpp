@@ -15,7 +15,7 @@ object. If something is to effect the window that isn't a specific event, it wil
 void Game::RenderGame()
 {
 	/*Assigning a value to the RenderWindow *window pointer created in the header file.*/
-	window = new sf::RenderWindow(sf::VideoMode(1024, 768), "Frogger");
+	window = new sf::RenderWindow(sf::VideoMode(windowDimensions.x, windowDimensions.y), "Frogger");
 																			
 	/*The Game loop used for rendering. Anything that fits within rendering	goes here.
 	Mainly drawing.It is the main game loop, but anything other than rendering can be placed in external methods.*/
@@ -53,7 +53,7 @@ void Game::EventHandling()
 	}
 
 	player.Movement(event);		//Tells the Player to move itself using a copy of the sf::Event object.
-	vehicle.Movement(100.0f);	//Tells the Vehicle to move its sprites. Will occur every loop.
+	vehicle.Movement();	//Tells the Vehicle to move its sprites. Will occur every loop.
 }
 
 void Game::StartGame()
@@ -63,6 +63,7 @@ void Game::StartGame()
 
 void Game::InitializeLevel()
 {
+	windowDimensions = sf::Vector2f(1024, 768);
 	if (!levelTexture.loadFromFile("resources/levelTexture.png"))
 	{
 	}
@@ -73,7 +74,6 @@ void Game::InitializeLevel()
 		the level sprite being the same size as the window, if the window changes these values
 		can be tweaked and the level object will scale nicely.*/
 		level.setTexture(levelTexture);
-		sf::Vector2f windowDimensions(1024.0f, 768.0f);
 		level.setScale(windowDimensions.x / level.getLocalBounds().width, windowDimensions.y / level.getLocalBounds().height);
 	}
 }
