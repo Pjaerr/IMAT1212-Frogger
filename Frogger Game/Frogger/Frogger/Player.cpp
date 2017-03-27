@@ -8,10 +8,10 @@ Player::~Player()
 {
 }
 
-/*This is the collision function, it will take 2 values, the vehicles and the ending zone.
+/*This is the collision function, it will take 3 values, the vehicles, the ending zone and the level bounds.
 If the player's bounds intersect with either of the objects bounds, it will register as
 a collision and an action relative to that collision can be carried out.*/
-void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd)
+void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd, std::vector<sf::RectangleShape> levelBounds)
 {
 	for (int i = 0; i < vehicles.size(); i++)
 	{
@@ -42,6 +42,29 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 			}
 			sprite.scale(1.1f, 1.1f);	//Each time player scores a point, increase the player's size to make it more difficult.
 		}
+		
+		/*Checks if the player is colliding with any of the level bounds and will move the player
+		slightly in the opposite direction to the level bound so as to stop them from ever being able to
+		exit the level.*/
+		for (int i = 0; i < levelBounds.size(); i++)
+		{
+			if (sprite.getGlobalBounds().intersects(levelBounds[i].getGlobalBounds()))
+			{
+				switch (i)
+				{
+				case 0:
+					sprite.move(-5.0f, 0);
+					break;
+				case 1:
+					sprite.move(0, -5.0f);
+					break;
+				case 2:
+					sprite.move(5.0f, 0);
+					break;
+				}
+			}
+		}
+		
 	}
 	
 }

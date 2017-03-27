@@ -21,7 +21,7 @@ private:
 public:
 	std::vector<sf::Sprite> getSprite();
 	void Movement();
-	void InstantiateVehicle(int numOfSprites, int numOfTextures, sf::Vector2f extWindowDimensions);	//The constructor but separated for abstraction.
+	void InstantiateVehicle(sf::Vector2f extWindowDimensions, int numOfTextures);	//The constructor but separated for abstraction.
 	Vehicle();
 	~Vehicle();
 };

@@ -13,6 +13,7 @@ private:
 	sf::Sprite level;			//Sprite that holds the background texture and that is drawn to the screen.
 
 	sf::RectangleShape levelEndZone;	//The rectangle used to detect if the player has safely made it across the roads.
+	std::vector<sf::RectangleShape> levelBounds;
 
 	Player player;				//Player.cpp instance.
 	Vehicle vehicle;		//Vehicle.cpp instance.

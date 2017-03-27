@@ -1,6 +1,14 @@
-﻿  Player.cpp
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\player.cpp(13): warning C4018: '<': signed/unsigned mismatch
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\player.cpp(18): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\player.cpp(24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\player.cpp(93): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  Vehicle.cpp
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(17): warning C4018: '<': signed/unsigned mismatch
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(62): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(76): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(78): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\vehicle.cpp(79): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Game.cpp
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(18): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(30): warning C4018: '<': signed/unsigned mismatch
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(86): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe

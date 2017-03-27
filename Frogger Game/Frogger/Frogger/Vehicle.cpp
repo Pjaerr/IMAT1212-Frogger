@@ -145,7 +145,7 @@ std::vector<sf::Sprite> Vehicle::getSprite()
 /*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
 the textures that are to be used within the game and will store them in a Textures vector. It will then call the Spawn()
 method and pass in the number of sprites and textures so that the Spawn() method can allocate them to each other accordingly.*/
-void Vehicle::InstantiateVehicle(int numOfSprites, int numOfTextures, sf::Vector2f extWindowDimensions)
+void Vehicle::InstantiateVehicle(sf::Vector2f extWindowDimensions, int numOfTextures)
 {
 	windowDimensions = extWindowDimensions;
 	spaceBetweenCars = 250;
@@ -158,6 +158,21 @@ void Vehicle::InstantiateVehicle(int numOfSprites, int numOfTextures, sf::Vector
 		if (!Textures[i].loadFromFile("resources/vehicletex/" + std::to_string(i) + ".png"))
 		{
 		}
+	}
+
+	int numOfSprites = 24;
+
+	if (windowDimensions.x == 1024)
+	{
+		numOfSprites = 24;
+	}
+	else if (windowDimensions.x == 1600)
+	{
+		numOfSprites = 28;
+	}
+	else if (windowDimensions.x == 1920)
+	{
+		numOfSprites = 32;
 	}
 
 	Spawn(numOfSprites, 4);	//Passes in number of sprites, and number of roads.

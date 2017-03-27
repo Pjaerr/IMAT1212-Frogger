@@ -21,7 +21,7 @@ public:
 	
 	sf::Sprite getSprite();			//Returns the sf::Sprite sprite when called.
 	void Movement(sf::Event event);	//Moves the player when called. Requires an sf::Event event to check for input.
-	void Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd);	//Checks for collision with the player.
+	void Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd, std::vector<sf::RectangleShape> levelBounds);	//Checks for collision with the player.
 	void InstantiatePlayer(sf::Vector2f windowDimensions, float movementSpeed, int numOfLifes);
 	Player();
 	~Player();
