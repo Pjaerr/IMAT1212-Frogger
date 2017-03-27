@@ -2,7 +2,7 @@
 
 Game::Game()
 {
-	InitializeLevel();
+	InitializeGame();
 }
 Game::~Game()
 {
@@ -25,7 +25,7 @@ void Game::RenderGame()
 		
 		window->draw(level);					
 		window->draw(player.getSprite());	//Draws the returned sprite from the player.
-
+		
 		/*Draws all of the vehicle's sprites from the Sprite[] array.*/
 		for (int i = 0; i < vehicle.getSprite().size(); i++)	
 		{
@@ -53,7 +53,9 @@ void Game::EventHandling()
 	}
 
 	player.Movement(event);		//Tells the Player to move itself using a copy of the sf::Event object.
-	vehicle.Movement();	//Tells the Vehicle to move its sprites. Will occur every loop.
+	vehicle.Movement();			//Tells the Vehicle to move its sprites. Will occur every loop.
+
+	player.Collision(vehicle.getSprite(), levelEndZone);	//Checks for collision on the player.	
 }
 
 void Game::StartGame()
@@ -61,9 +63,14 @@ void Game::StartGame()
 	RenderGame();
 }
 
-void Game::InitializeLevel()
+void Game::InitializeGame()
 {
-	windowDimensions = sf::Vector2f(1024, 768);
+	windowDimensions = sf::Vector2f(1024, 768);	//Initialises the window dimensions.
+
+	
+	vehicle.InstantiateVehicle(24, 4, windowDimensions);	//Starts the vehicle class with 24 sprites, 4 textures and passes in the window dimensions.
+	player.InstantiatePlayer(windowDimensions, 45.0f, 3);	//Starts the player class with 45 movement speed, 3 lifes and passes in the window dimensions.
+
 	if (!levelTexture.loadFromFile("resources/levelTexture.png"))
 	{
 	}
@@ -75,5 +82,7 @@ void Game::InitializeLevel()
 		can be tweaked and the level object will scale nicely.*/
 		level.setTexture(levelTexture);
 		level.setScale(windowDimensions.x / level.getLocalBounds().width, windowDimensions.y / level.getLocalBounds().height);
+
+		levelEndZone.setSize(sf::Vector2f(windowDimensions.x, (windowDimensions.y * 0.04)));	//Sets end zone to be 4% of the window height.
 	}
 }
