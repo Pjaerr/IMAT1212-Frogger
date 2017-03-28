@@ -22,6 +22,7 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 			sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 0.92));	//Reset the player's position.
 
 			numOfLives--;	//Player loses a life.
+			playerStats[1].setString("Lives: " + std::to_string(numOfLives));
 
 			if (isDead())
 			{
@@ -30,17 +31,18 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 		}
 		else if (sprite.getGlobalBounds().intersects(levelEnd.getGlobalBounds()))
 		{
-			std::cout << "Player scores 1 point" << std::endl;
+			std::cout << "Player score is: "<< score << std::endl;
 
-			sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 0.92));	//Reset the player's position.
+			sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 1));	//Reset the player's position.
 
 			score++;	//Player gains a point.
+			playerStats[0].setString("Score: " + std::to_string(score));
 
 			if (score >= 5)
 			{
 				//Player Wins
 			}
-			sprite.scale(1.1f, 1.1f);	//Each time player scores a point, increase the player's size to make it more difficult.
+			sprite.scale(scalingValue);	//Each time player scores a point, increase the player's size to make it more difficult.
 		}
 		
 		/*Checks if the player is colliding with any of the level bounds and will move the player
@@ -69,6 +71,11 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 	
 }
 
+std::vector<sf::Text> Player::getStats()
+{
+	return playerStats;
+}
+
 /*Checks for relevant keyboard input via the sf::Event and then moves this current object's sprite by
 movementSpeed accordingly. Avoids constant movement by setting the isKeyDown boolean to false when a key is
 released and to true when a key is pressed and the initial movement has been carried out.*/
@@ -79,18 +86,22 @@ void Player::Movement(sf::Event event)
 		if (event.key.code == sf::Keyboard::Up)
 		{
 			sprite.move(0, -movementSpeed);
+			sprite.setRotation(0);
 		}
 		else if (event.key.code == sf::Keyboard::Down)
 		{
 			sprite.move(0, movementSpeed);
+			sprite.setRotation(180);
 		}
 		else if (event.key.code == sf::Keyboard::Left)
 		{
 			sprite.move(-movementSpeed, 0);
+			sprite.setRotation(270);
 		}
 		else if (event.key.code == sf::Keyboard::Right)
 		{
 			sprite.move(movementSpeed, 0);
+			sprite.setRotation(90);
 		}
 
 		isKeyDown = true;
@@ -119,6 +130,8 @@ void Player::InstantiatePlayer(sf::Vector2f extWindowDimensions, float extMoveme
 	windowDimensions = extWindowDimensions;
 	movementSpeed = extMovementSpeed;
 	numOfLives = extNumOfLifes;
+	score = 0;
+	scalingValue = sf::Vector2f(1.05f, 1.05f);
 	
 	if (!texture.loadFromFile("resources/frogTexture.png"))
 	{
@@ -128,7 +141,18 @@ void Player::InstantiatePlayer(sf::Vector2f extWindowDimensions, float extMoveme
 		sprite.setTexture(texture);
 	}
 
+	font.loadFromFile("resources/fonts/04b30.ttf");	//Font is 04b_30 by 04 on DaFont.com
+	
+	playerStats.resize(2);
+	playerStats[0] = sf::Text("Score: " + std::to_string(score), font, 20);
+	playerStats[0].setPosition((windowDimensions.x * 0.8f), (windowDimensions.y * 0.02f));
+	playerStats[1] = sf::Text("Lives: " + std::to_string(numOfLives), font, 20);
+	playerStats[1].setPosition((windowDimensions.x * 0.02f), (windowDimensions.y * 0.02f));
+
+	
+
 	/*Sets the starting position to be the bottom of the screen no matter the resolution*/
+	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	sprite.setScale(1.8f, 1.8f);
-	sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 0.92));
+	sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 1.0f));
 }

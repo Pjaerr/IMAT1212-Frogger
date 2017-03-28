@@ -9,6 +9,43 @@ Game::~Game()
 	window->~RenderWindow();	//Deallocates the memory given to the RenderWindow *window object.
 }
 
+void Game::MainMenu()
+{
+	font.loadFromFile("resources/fonts/04b30.ttf");
+
+	sf::Text title("Frogger!", font, 32);
+	title.setPosition((windowDimensions.x * 0.42f), (windowDimensions.y * 0.2f));
+
+	sf::RectangleShape startButton(sf::Vector2f(140, 40));
+	startButton.setPosition((windowDimensions.x * 0.45f), (windowDimensions.y * 0.3f));
+	sf::Text startText("Start", font, 24);
+	startText.setPosition((windowDimensions.x * 0.47f), (windowDimensions.y * 0.31f));
+	startText.setColor(sf::Color::Black);
+
+	sf::RectangleShape quitButton(sf::Vector2f(140, 40));
+	quitButton.setPosition((windowDimensions.x * 0.45f), (windowDimensions.y * 0.4f));
+	sf::Text quitText("Quit", font, 24);
+	quitText.setPosition((windowDimensions.x * 0.47f), (windowDimensions.y * 0.41f));
+	quitText.setColor(sf::Color::Black);
+
+	std::cout << sf::Mouse::getPosition(*window).x << std::endl;
+	std::cout << (int)startButton.getPosition().x << std::endl;
+
+	if (sf::Mouse::getPosition(*window).x == std::floor(startButton.getPosition().x) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		start = true;
+	}
+	else 
+	{
+		window->draw(title);
+		window->draw(startButton);
+		window->draw(startText);
+		window->draw(quitButton);
+		window->draw(quitText);
+	}
+}
+
+
 /*This is the method used to render any game objects. This can be from within the Game class or outside of it.
 Event handling is called inside of this method for continuity's sake and to avoid passing around the main RenderWindow
 object. If something is to effect the window that isn't a specific event, it will go inside of this method.*/
@@ -23,13 +60,25 @@ void Game::RenderGame()
 	{
 		window->clear(sf::Color::Black);
 		
-		window->draw(level);					
-		window->draw(player.getSprite());	//Draws the returned sprite from the player.
-
-		/*Draws all of the vehicle's sprites from the Sprite[] array.*/
-		for (int i = 0; i < vehicle.getSprite().size(); i++)	
+		if (start == false)
 		{
-			window->draw(vehicle.getSprite()[i]);	
+			MainMenu();
+		}
+		else
+		{
+			window->draw(level);
+			window->draw(player.getSprite());	//Draws the returned sprite from the player.
+			for (int i = 0; i < player.getStats().size(); i++)
+			{
+				window->draw(player.getStats()[i]);
+			}
+
+
+			/*Draws all of the vehicle's sprites from the Sprite[] array.*/
+			for (int i = 0; i < vehicle.getSprite().size(); i++)
+			{
+				window->draw(vehicle.getSprite()[i]);
+			}
 		}
 		
 		window->display();

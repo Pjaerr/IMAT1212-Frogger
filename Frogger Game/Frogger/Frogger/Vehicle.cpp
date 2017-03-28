@@ -24,7 +24,7 @@ void Vehicle::Movement()
 
 		if (Directions[i] == 0)
 		{
-			movementSpeed = 100;	//If the direction a car is facing is left, then move it slower.
+			movementSpeed = 140;	//If the direction a car is facing is left, then move it slower.
 
 			/*If the car has reached the left most position, move that car back to the right most position*/
 			if (Sprites[i].getPosition().x < leftMostPos)
@@ -38,7 +38,7 @@ void Vehicle::Movement()
 		}
 		else if (Directions[i] == 1)
 		{
-			movementSpeed = 140;	//If the direction a car is facing is right, then move it faster.
+			movementSpeed = 180;	//If the direction a car is facing is right, then move it faster.
 
 			/*If the car has reached the right most position, move that car back to the left most position*/
 			if (Sprites[i].getPosition().x > rightMostPos)
