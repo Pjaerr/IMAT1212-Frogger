@@ -5,6 +5,7 @@
 class UI
 {
 private:
+	//Components
 	sf::Font font;
 	sf::Vector2f WindowDimensions;
 

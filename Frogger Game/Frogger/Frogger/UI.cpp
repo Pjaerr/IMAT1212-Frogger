@@ -1,5 +1,6 @@
 #include "UI.h"
 
+/*Called to give the UI class a font and the dimensions of the window (for scaling).*/
 void UI::InitializeUI(sf::Vector2f windowDimensions, sf::String fontName) 
 {
 	//04b30.ttf
@@ -14,6 +15,9 @@ UI::~UI()
 {
 }
 
+/*Takes the strings passed in and assigns them to sf::Text elements that are then sized, placed
+and drawn onto the screen. The xPosition of the Text elements are decided by their order. First element
+goes onto the far left, second far right etc.*/
 void UI::CreateHUD(std::vector<sf::String> elements, int textSize, sf::RenderWindow *window)
 {
 	float xPos;
@@ -39,7 +43,11 @@ void UI::CreateHUD(std::vector<sf::String> elements, int textSize, sf::RenderWin
 	}
 }
 
-/*TEMPORARY PASSING OF *WINDOW*/
+/*This function creates a panel style UI. Title > Button > Button etc. It takes a panel title, and then
+the names of each button in the order they should be placed. It takes the button names, and creates buttons
+using the string. Each button is placed the same width apart. It will then draw the title and the buttons.
+Lastly, it will return the number of the button that is currently being clicked so that an action can be
+assigned in the place where the function is called.*/
 int UI::CreatePanel(sf::String panelTitle, std::vector<sf::String> buttonNames, sf::RenderWindow *window)
 {
 	float yPos;

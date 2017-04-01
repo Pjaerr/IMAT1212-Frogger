@@ -22,7 +22,7 @@ private:
 
 	//Checks
 	bool isKeyDown = false;	//Used when moving the player, to stop constant free-form movement.
-	bool isDead();			//Returns true if player has no more lifes.
+	
 	
 	
 public:
@@ -35,6 +35,7 @@ public:
 	//Returning
 	sf::Sprite getSprite();			//Returns the sf::Sprite sprite when called.
 	std::vector<sf::String> getStats();
+	bool isDead();			//Returns true if player has no more lifes.
 
 	//Internal
 	void Movement(sf::Event event);	//Moves the player when called. Requires an sf::Event event to check for input.
