@@ -22,7 +22,7 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 			sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 0.92));	//Reset the player's position.
 
 			numOfLives--;	//Player loses a life.
-			playerStats[1].setString("Lives: " + std::to_string(numOfLives));
+			playerStats[1] = "Lives: " + std::to_string(numOfLives);
 
 			if (isDead())
 			{
@@ -36,7 +36,7 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 			sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 1));	//Reset the player's position.
 
 			score++;	//Player gains a point.
-			playerStats[0].setString("Score: " + std::to_string(score));
+			playerStats[0] = "Score: " + std::to_string(score);
 
 			if (score >= 5)
 			{
@@ -71,7 +71,7 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 	
 }
 
-std::vector<sf::Text> Player::getStats()
+std::vector<sf::String> Player::getStats()
 {
 	return playerStats;
 }
@@ -140,14 +140,10 @@ void Player::InstantiatePlayer(sf::Vector2f extWindowDimensions, float extMoveme
 	{
 		sprite.setTexture(texture);
 	}
-
-	font.loadFromFile("resources/fonts/04b30.ttf");	//Font is 04b_30 by 04 on DaFont.com
 	
 	playerStats.resize(2);
-	playerStats[0] = sf::Text("Score: " + std::to_string(score), font, 20);
-	playerStats[0].setPosition((windowDimensions.x * 0.8f), (windowDimensions.y * 0.02f));
-	playerStats[1] = sf::Text("Lives: " + std::to_string(numOfLives), font, 20);
-	playerStats[1].setPosition((windowDimensions.x * 0.02f), (windowDimensions.y * 0.02f));
+	playerStats[0] = "Score: " + std::to_string(score);
+	playerStats[1] = "Lives: " + std::to_string(numOfLives);
 
 	
 

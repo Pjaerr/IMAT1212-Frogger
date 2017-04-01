@@ -12,7 +12,7 @@ private:
 	sf::Texture texture;	//Global texture that is assigned to sprite on PlayerInstantiation() call.
 	sf::Sprite sprite;		//Global sprite that is drawn and moved.
 	sf::Font font;
-	std::vector<sf::Text> playerStats;
+	std::vector<sf::String> playerStats;
 
 	//Attributes
 	float movementSpeed;	//Movement speed is the distance moved when a movement key is pressed.
@@ -34,7 +34,7 @@ public:
 	
 	//Returning
 	sf::Sprite getSprite();			//Returns the sf::Sprite sprite when called.
-	std::vector<sf::Text> getStats();
+	std::vector<sf::String> getStats();
 
 	//Internal
 	void Movement(sf::Event event);	//Moves the player when called. Requires an sf::Event event to check for input.

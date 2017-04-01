@@ -11,45 +11,24 @@ Game::~Game()
 
 void Game::MainMenu()
 {
-	font.loadFromFile("resources/fonts/04b30.ttf");
+	std::vector<sf::String> buttonNames;
+	buttonNames.resize(2);
 
-	sf::Text title("Frogger!", font, 32);
-	title.setPosition((windowDimensions.x * 0.42f), (windowDimensions.y * 0.2f));
+	buttonNames[0] = "Start";
+	buttonNames[1] = "Quit";
 
-	sf::RectangleShape startButton(sf::Vector2f(140, 40));
-	startButton.setPosition((windowDimensions.x * 0.45f), (windowDimensions.y * 0.3f));
-	sf::Text startText("Start", font, 24);
-	startText.setPosition((windowDimensions.x * 0.47f), (windowDimensions.y * 0.31f));
-	startText.setColor(sf::Color::Black);
+	int buttonPressed = ui.CreatePanel("Frogger!", buttonNames, window);
 
-	sf::RectangleShape quitButton(sf::Vector2f(140, 40));
-	quitButton.setPosition((windowDimensions.x * 0.45f), (windowDimensions.y * 0.4f));
-	sf::Text quitText("Quit", font, 24);
-	quitText.setPosition((windowDimensions.x * 0.47f), (windowDimensions.y * 0.41f));
-	quitText.setColor(sf::Color::Black);
-
-
-	sf::RectangleShape mouseRect(sf::Vector2f(20, 20));
-	mouseRect.setPosition(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
-
-	if (mouseRect.getGlobalBounds().intersects(startButton.getGlobalBounds()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	switch (buttonPressed)
 	{
+	case 0:
 		start = true;
-	}
-	else if (quitButton.getGlobalBounds().intersects(quitButton.getGlobalBounds()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
-	{
+		break;
+	case 1:
 		window->close();
+		break;
 	}
-	else 
-	{
-		//Temporary drawing until functionality is placed into UI class.
-		window->draw(mouseRect);
-		window->draw(title);
-		window->draw(startButton);
-		window->draw(startText);
-		window->draw(quitButton);
-		window->draw(quitText);
-	}
+	
 }
 
 
@@ -75,12 +54,8 @@ void Game::RenderGame()
 		{
 			window->draw(level);
 			window->draw(player.getSprite());	//Draws the returned sprite from the player.
-			for (int i = 0; i < player.getStats().size(); i++)
-			{
-				window->draw(player.getStats()[i]);
-			}
-
-
+			ui.CreateHUD(player.getStats(), 20, window);
+			
 			/*Draws all of the vehicle's sprites from the Sprite[] array.*/
 			for (int i = 0; i < vehicle.getSprite().size(); i++)
 			{
@@ -123,6 +98,7 @@ void Game::InitializeGame()
 {
 	windowDimensions = sf::Vector2f(1024, 768);	//Initialises the window dimensions.
 
+	ui.InitializeUI(windowDimensions, "04b30.ttf");
 	vehicle.InstantiateVehicle(windowDimensions, 4);	//Starts the vehicle class with 24 sprites, 4 textures and passes in the window dimensions.
 	player.InstantiatePlayer(windowDimensions, 45.0f, 3);	//Starts the player class with 45 movement speed, 3 lifes and passes in the window dimensions.
 

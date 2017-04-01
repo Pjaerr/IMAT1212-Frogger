@@ -2,12 +2,13 @@
 
 #include "Player.h"
 #include "Vehicle.h"
+#include "UI.h"
 
 class Game
 {
 private:
 	bool start = false;
-	sf::Font font;
+
 	sf::Vector2f windowDimensions;
 	sf::RenderWindow * window;	//RenderWindow object as a pointer. Value is assigned in RenderGame().
 
@@ -18,7 +19,8 @@ private:
 	std::vector<sf::RectangleShape> levelBounds;
 
 	Player player;				//Player.cpp instance.
-	Vehicle vehicle;		//Vehicle.cpp instance.
+	Vehicle vehicle;			//Vehicle.cpp instance.
+	UI ui;						//UI.cpp instance.
 
 	void EventHandling();		//Function used to handle any events that do not involve drawing.
 	void RenderGame();			//Function used to handle all of the drawing within the game.
