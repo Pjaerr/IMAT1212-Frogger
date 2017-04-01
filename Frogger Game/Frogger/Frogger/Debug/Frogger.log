@@ -1,11 +1,13 @@
 ﻿  Game.cpp
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(23): warning C4996: 'sf::Text::setColor': was declared deprecated
   c:\users\pjaer\desktop\imat1212-frogger\frogger game\external libraries\sfml\include\sfml\graphics\text.hpp(177): note: see declaration of 'sf::Text::setColor'
 c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(29): warning C4996: 'sf::Text::setColor': was declared deprecated
   c:\users\pjaer\desktop\imat1212-frogger\frogger game\external libraries\sfml\include\sfml\graphics\text.hpp(177): note: see declaration of 'sf::Text::setColor'
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(55): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(71): warning C4018: '<': signed/unsigned mismatch
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(62): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
 c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(78): warning C4018: '<': signed/unsigned mismatch
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(135): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(140): warning C4018: '<': signed/unsigned mismatch
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(85): warning C4018: '<': signed/unsigned mismatch
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(142): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(147): warning C4018: '<': signed/unsigned mismatch
   Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe
+  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.pdb (Full PDB)

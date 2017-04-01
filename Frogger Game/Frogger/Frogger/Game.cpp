@@ -28,15 +28,22 @@ void Game::MainMenu()
 	quitText.setPosition((windowDimensions.x * 0.47f), (windowDimensions.y * 0.41f));
 	quitText.setColor(sf::Color::Black);
 
-	std::cout << sf::Mouse::getPosition(*window).x << std::endl;
-	std::cout << (int)startButton.getPosition().x << std::endl;
 
-	if (sf::Mouse::getPosition(*window).x == std::floor(startButton.getPosition().x) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	sf::RectangleShape mouseRect(sf::Vector2f(20, 20));
+	mouseRect.setPosition(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+
+	if (mouseRect.getGlobalBounds().intersects(startButton.getGlobalBounds()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		start = true;
 	}
+	else if (quitButton.getGlobalBounds().intersects(quitButton.getGlobalBounds()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+	{
+		window->close();
+	}
 	else 
 	{
+		//Temporary drawing until functionality is placed into UI class.
+		window->draw(mouseRect);
 		window->draw(title);
 		window->draw(startButton);
 		window->draw(startText);
