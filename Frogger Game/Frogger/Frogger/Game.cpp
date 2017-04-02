@@ -115,10 +115,19 @@ void Game::RestartGame()
 			{
 				window->close();
 			}
+			//NOTE TO SELF* Once assignment is finished, see about events being on a separate thread, to avoid window freezes when moved.
+			else if (event.type == sf::Event::LostFocus)
+			{
+				windowHasFocus = false;
+			}
+			else if (event.type == sf::Event::GainedFocus)
+			{
+				windowHasFocus = true;
+			}
 		}
 
-		player.Movement(event);		//Tells the Player to move itself using a copy of the sf::Event object.
-		vehicle.Movement();			//Tells the Vehicle to move its sprites. Will occur every loop.
+		player.Movement(event);				//Tells the Player to move itself using a copy of the sf::Event object.
+		vehicle.Movement(windowHasFocus);	//Tells the Vehicle to move its sprites and whether or the window has focus. Will occur every loop.
 
 		player.Collision(vehicle.getSprite(), levelEndZone, levelBounds);	//Checks for collision on the player.	
 
@@ -130,6 +139,11 @@ void Game::RestartGame()
 		}
 	}
 
+
+void Game::PauseGame()
+{
+
+}
 void Game::StartGame()
 {
 	RenderGame();

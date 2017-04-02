@@ -26,7 +26,7 @@ public:
 	std::vector<sf::Sprite> getSprite();
 
 	//External
-	void Movement();
+	void Movement(bool lostFocus);
 	void InstantiateVehicle(sf::Vector2f extWindowDimensions, int numOfTextures);	//The constructor but separated for abstraction.
 	Vehicle();
 	~Vehicle();

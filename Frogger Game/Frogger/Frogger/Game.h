@@ -31,6 +31,9 @@ private:
 	void InitializeGame();		//Setup for the level sprite and sprite/window scaling.
 	void MainMenu();
 	void RestartGame();
+	void PauseGame();
+
+	bool windowHasFocus = true;
 
 public:
 	//External

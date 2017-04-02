@@ -1,9 +1,1 @@
-﻿  Game.cpp
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(42): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(61): warning C4018: '<': signed/unsigned mismatch
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(154): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\game.cpp(159): warning C4018: '<': signed/unsigned mismatch
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Source.cpp
-  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe
+﻿  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe
