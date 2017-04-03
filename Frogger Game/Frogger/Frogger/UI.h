@@ -6,8 +6,8 @@ class UI
 {
 private:
 	//Components
-	sf::Font font;
-	sf::Vector2f WindowDimensions;
+	sf::Font font;					//the font passed in when initialized.				
+	sf::Vector2f WindowDimensions;	//The window dimensions passed in when Initialized.
 
 public:
 	int CreatePanel(sf::String panelTitle, std::vector<sf::String> buttonNames, sf::RenderWindow *window);

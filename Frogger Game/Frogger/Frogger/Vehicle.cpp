@@ -1,10 +1,38 @@
 #include "Vehicle.h"
 
+/*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
+the textures that are to be used within the game and will store them in a Textures vector. It will then call the Spawn()
+method and pass in the number of sprites and textures so that the Spawn() method can allocate them to each other accordingly.*/
+void Vehicle::InstantiateVehicle(sf::Vector2f extWindowDimensions, int numOfSprites, int numOfTextures)
+{
+	windowDimensions = extWindowDimensions;				//Sets the local windowDimensions to ones passed in.
+	spaceBetweenCars = windowDimensions.x * 0.25f;		//Sets the space between cars to always be 25% of the screen x value.
+
+	/*Sets an array of textures here at start so that they can be pulled from in the
+	Spawn() method when assigning textures.*/
+	Textures.resize(numOfTextures);
+	for (int i = 0; i < numOfTextures; i++)
+	{
+		if (!Textures[i].loadFromFile("resources/vehicletex/" + std::to_string(i) + ".png"))
+		{
+		}
+	}
+
+	Spawn(numOfSprites, 4);	//Passes in number of sprites, and number of roads.
+}
+
+Vehicle::Vehicle()
+{
+}
+Vehicle::~Vehicle()
+{
+}
+
 /*This is the function that moves the vehicles. It uses a movementSpeed float with which it will multiply by the time elapsed during the previous
 frame and then move each sprite in the Sprites[] vector by that value. This results in smooth movement for the vehicles as they are being moved
 along with the frame. Depending upon the direction of the sprite as per the Spawn() function, the movement will be carried out on negative or
 positive values.*/
-void Vehicle::Movement(bool lostFocus)
+void Vehicle::Movement(bool windowHasFocus)
 {
 	
 	/*Grabs the elasped time since the game clock was last restarted and then 
@@ -15,18 +43,15 @@ void Vehicle::Movement(bool lostFocus)
 
 	/*If the window has focus, set deltaTime to the last restarted frame. If not, set deltaTime
 	to 0, thus stopping the cars from moving.*/
-	if (lostFocus)
-	{
-		deltaTime = 0;
-	}
-	else
+	if (windowHasFocus)
 	{
 		deltaTime = dt.asSeconds();
 	}
-	
-
-	float movementSpeed;	
-
+	else
+	{
+		deltaTime = 0;
+	}
+		
 	for (int i = 0; i < Sprites.size(); i++)
 	{
 		/*The furthest left on the screen moved further left by the given space, so that the cars spawn just off screen.*/
@@ -37,7 +62,7 @@ void Vehicle::Movement(bool lostFocus)
 
 		if (Directions[i] == 0)
 		{
-			movementSpeed = 140;	//If the direction a car is facing is left, then move it slower.
+			movementSpeed = windowDimensions.x * 0.135f;	//If the direction a car is facing is left, then move it slower.
 
 			/*If the car has reached the left most position, move that car back to the right most position*/
 			if (Sprites[i].getPosition().x < leftMostPos)
@@ -51,7 +76,7 @@ void Vehicle::Movement(bool lostFocus)
 		}
 		else if (Directions[i] == 1)
 		{
-			movementSpeed = 180;	//If the direction a car is facing is right, then move it faster.
+			movementSpeed = windowDimensions.x * 0.175f;	//If the direction a car is facing is right, then move it faster.
 
 			/*If the car has reached the right most position, move that car back to the left most position*/
 			if (Sprites[i].getPosition().x > rightMostPos)
@@ -136,7 +161,7 @@ void Vehicle::Spawn(int numOfSprites, int numOfRoads)
 that decides whether the sprite faces left or right.*/
 void Vehicle::positionSprites(sf::Sprite& sprite, sf::Vector2f pos, bool isFlipped)
 {
-	sprite.setScale(1.8f, 1.8f);	//Gives the sprite its initial scale.
+	sprite.setScale((windowDimensions.x * 0.00175f), (windowDimensions.y * 0.00234f));	//Gives the sprite its initial scale.
 
 	if (isFlipped)
 	{
@@ -153,47 +178,4 @@ void Vehicle::positionSprites(sf::Sprite& sprite, sf::Vector2f pos, bool isFlipp
 std::vector<sf::Sprite> Vehicle::getSprite()
 {
 	return Sprites;
-}
-
-/*VehicleInstantiation() takes the number of sprites and textures to launch the game with. This method will initialise
-the textures that are to be used within the game and will store them in a Textures vector. It will then call the Spawn()
-method and pass in the number of sprites and textures so that the Spawn() method can allocate them to each other accordingly.*/
-void Vehicle::InstantiateVehicle(sf::Vector2f extWindowDimensions, int numOfTextures)
-{
-	windowDimensions = extWindowDimensions;
-	spaceBetweenCars = 250;
-
-	/*Sets an array of textures here at start so that they can be pulled from in the
-	Spawn() method when assigning textures.*/
-	Textures.resize(numOfTextures);
-	for (int i = 0; i < numOfTextures; i++)
-	{
-		if (!Textures[i].loadFromFile("resources/vehicletex/" + std::to_string(i) + ".png"))
-		{
-		}
-	}
-
-	int numOfSprites = 24;
-
-	if (windowDimensions.x == 1024)
-	{
-		numOfSprites = 24;
-	}
-	else if (windowDimensions.x == 1600)
-	{
-		numOfSprites = 28;
-	}
-	else if (windowDimensions.x == 1920)
-	{
-		numOfSprites = 32;
-	}
-
-	Spawn(numOfSprites, 4);	//Passes in number of sprites, and number of roads.
-}
-
-Vehicle::Vehicle()
-{
-}
-Vehicle::~Vehicle()
-{
 }

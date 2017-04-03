@@ -1,1 +1,28 @@
-﻿  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe
+﻿cl : Command line warning D9007: '/Gm' requires '/Zi or /ZI'; option ignored
+  Game.cpp
+Game.cpp(46): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+Game.cpp(68): warning C4018: '<': signed/unsigned mismatch
+Game.cpp(173): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Game.cpp(178): warning C4018: '<': signed/unsigned mismatch
+  Player.cpp
+Player.cpp(48): warning C4018: '<': signed/unsigned mismatch
+Player.cpp(76): warning C4018: '<': signed/unsigned mismatch
+  Source.cpp
+Source.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  UI.cpp
+UI.cpp(30): warning C4018: '<': signed/unsigned mismatch
+UI.cpp(69): warning C4018: '<': signed/unsigned mismatch
+UI.cpp(105): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+UI.cpp(107): warning C4018: '<': signed/unsigned mismatch
+UI.cpp(93): warning C4996: 'sf::Text::setColor': was declared deprecated
+  C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\External Libraries\SFML\include\SFML/Graphics/Text.hpp(177): note: see declaration of 'sf::Text::setColor'
+  Vehicle.cpp
+Vehicle.cpp(55): warning C4018: '<': signed/unsigned mismatch
+Vehicle.cpp(100): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+Vehicle.cpp(114): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vehicle.cpp(115): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vehicle.cpp(116): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vehicle.cpp(117): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+c:\users\pjaer\desktop\imat1212-frogger\frogger game\frogger\frogger\ui.cpp(115): warning C4715: 'UI::CreatePanel': not all control paths return a value
+  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe

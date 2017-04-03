@@ -104,46 +104,41 @@ void Game::RestartGame()
 	//Restart game in here.
 }
 
-	/*Any events not specific to rendering go inside of the EventHandling method.
-	Try to keep events inside their own methods and only called from here.*/
-	void Game::EventHandling()
+/*Any events not specific to rendering go inside of the EventHandling method.
+Try to keep events inside their own methods and only called from here.*/
+void Game::EventHandling()
+{
+	sf::Event event;
+	while (window->pollEvent(event))			//Checks if any events have occured on the window, if they have they will be pushed to the top of the event queue.
 	{
-		sf::Event event;
-		while (window->pollEvent(event))			//Checks if any events have occured on the window, if they have they will be pushed to the top of the event queue.
+		if (event.type == sf::Event::Closed)	//Checks to see if the closed event has been triggered on the window and closes the window if so.
 		{
-			if (event.type == sf::Event::Closed)	//Checks to see if the closed event has been triggered on the window and closes the window if so.
-			{
-				window->close();
-			}
-			//NOTE TO SELF* Once assignment is finished, see about events being on a separate thread, to avoid window freezes when moved.
-			else if (event.type == sf::Event::LostFocus)
-			{
-				windowHasFocus = false;
-			}
-			else if (event.type == sf::Event::GainedFocus)
-			{
-				windowHasFocus = true;
-			}
+			window->close();
 		}
-
-		player.Movement(event);				//Tells the Player to move itself using a copy of the sf::Event object.
-		vehicle.Movement(windowHasFocus);	//Tells the Vehicle to move its sprites and whether or the window has focus. Will occur every loop.
-
-		player.Collision(vehicle.getSprite(), levelEndZone, levelBounds);	//Checks for collision on the player.	
-
-		/*If the player has died, change the game states accordingly.*/
-		if (player.isDead())
+		//NOTE TO SELF* Once assignment is finished, see about events being on a separate thread, to avoid window freezes when moved.
+		else if (event.type == sf::Event::LostFocus)
 		{
-			GameState_Play = false;
-			GameState_End = true;
+			windowHasFocus = false;
+		}
+		else if (event.type == sf::Event::GainedFocus)
+		{
+			windowHasFocus = true;
 		}
 	}
 
+	player.Movement(event);				//Tells the Player to move itself using a copy of the sf::Event object.
+	vehicle.Movement(windowHasFocus);	//Tells the Vehicle to move its sprites and whether or the window has focus. Will occur every loop.
 
-void Game::PauseGame()
-{
+	player.Collision(vehicle.getSprite(), levelEndZone, levelBounds);	//Checks for collision on the player.	
 
+	/*If the player has died, change the game states accordingly.*/
+	if (player.isDead())
+	{
+		GameState_Play = false;
+		GameState_End = true;
+	}
 }
+
 void Game::StartGame()
 {
 	RenderGame();
@@ -158,9 +153,9 @@ void Game::InitializeGame()
 
 	windowDimensions = sf::Vector2f(1024, 768);	//Initialises the window dimensions.
 
-	ui.InitializeUI(windowDimensions, "04b30.ttf");			//Starts the UI class with the font 04b30.ttf and the window dimensions.
-	vehicle.InstantiateVehicle(windowDimensions, 4);		//Starts the vehicle class with 24 sprites, 4 textures and passes in the window dimensions.
-	player.InstantiatePlayer(windowDimensions, 45.0f, 3);	//Starts the player class with 45 movement speed, 3 lifes and passes in the window dimensions.
+	ui.InitializeUI(windowDimensions, "04b30.ttf");			 //Starts the UI class with the font 04b30.ttf and the window dimensions.
+	vehicle.InstantiateVehicle(windowDimensions, 24, 4);	 //Starts the vehicle class with 24 sprites, 4 textures and passes in the window dimensions.
+	player.InstantiatePlayer(windowDimensions, 45.0f, 3, 5); //Starts the player class with 45 movement speed, 3 lifes and passes in the window dimensions and scoretoWin.
 
 	if (!levelTexture.loadFromFile("resources/levelTexture.png"))
 	{
