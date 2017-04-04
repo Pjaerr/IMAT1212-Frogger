@@ -33,7 +33,7 @@ private:
 	void RestartGame();		//Resets all objects and stats in the game.
 
 	//Checks
-	bool windowHasFocus = true;
+	bool gameHasFocus = true;
 
 public:
 

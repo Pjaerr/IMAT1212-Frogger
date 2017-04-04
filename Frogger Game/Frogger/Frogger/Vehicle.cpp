@@ -32,7 +32,7 @@ Vehicle::~Vehicle()
 frame and then move each sprite in the Sprites[] vector by that value. This results in smooth movement for the vehicles as they are being moved
 along with the frame. Depending upon the direction of the sprite as per the Spawn() function, the movement will be carried out on negative or
 positive values.*/
-void Vehicle::Movement(bool windowHasFocus)
+void Vehicle::Movement(bool gameHasFocus)
 {
 	
 	/*Grabs the elasped time since the game clock was last restarted and then 
@@ -43,7 +43,7 @@ void Vehicle::Movement(bool windowHasFocus)
 
 	/*If the window has focus, set deltaTime to the last restarted frame. If not, set deltaTime
 	to 0, thus stopping the cars from moving.*/
-	if (windowHasFocus)
+	if (gameHasFocus)
 	{
 		deltaTime = dt.asSeconds();
 	}

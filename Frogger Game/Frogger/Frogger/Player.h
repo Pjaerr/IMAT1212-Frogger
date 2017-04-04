@@ -30,7 +30,8 @@ public:
 	~Player();
 
 	/*Called when creating the player, to pass in the required variables/objects*/
-	void InstantiatePlayer(sf::Vector2f windowDimensions, float movementSpeed, int numOfLifes, int scoreToWin);
+	void InstantiateClass(sf::Vector2f windowDimensions, float movementSpeed, int numOfLifes, int scoreToWin);
+	void SetPlayer(int extNumOfLifes);
 	
 	//Returning
 	sf::Sprite getSprite();					//Returns the sf::Sprite sprite when called.
@@ -39,7 +40,7 @@ public:
 	bool hasWon();							//Returns true if score == scoreToWin.
 
 	//Internal
-	void Movement(sf::Event event);	//Moves the player when called. Requires an sf::Event event to check for input.
+	void Movement(sf::Event event, bool gameHasFocus);	//Moves the player when called. Requires an sf::Event event to check for input.
 
 	/*Checks for collision between the Player, vehicles, ending zone or level boundaries.*/
 	void Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd, std::vector<sf::RectangleShape> levelBounds);	

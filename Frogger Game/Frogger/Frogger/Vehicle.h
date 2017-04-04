@@ -29,7 +29,7 @@ public:
 	std::vector<sf::Sprite> getSprite();	//Returns the vehicle sprites.
 
 	//External
-	void Movement(bool windowHasFocus);	//Moves the vehicle sprites when the window has focus.
+	void Movement(bool gameHasFocus);	//Moves the vehicle sprites when the window has focus.
 
 	/*Acts as the constructor but separated to allow changes to the vehicle class without recreating it.*/
 	void InstantiateVehicle(sf::Vector2f extWindowDimensions, int numOfSprites, int numOfTextures);	

@@ -8,14 +8,14 @@ Player::~Player()
 {
 }
 
-/*Initializes the player's visual attributes.*/
-void Player::InstantiatePlayer(sf::Vector2f extWindowDimensions, float extMovementSpeed, int extNumOfLifes, int extScoreToWin)
+/*Initializes the player class. Takes in window dimensions, movement speed, number of lives and the max score needed to win.
+These passed in values are then assigned to be used locally.*/
+void Player::InstantiateClass(sf::Vector2f extWindowDimensions, float extMovementSpeed, int extNumOfLifes, int extScoreToWin)
 {
 	windowDimensions = extWindowDimensions;	//Sets the Player::windowDimensions to the window dimensions passed into this function.
 	movementSpeed = extMovementSpeed;		//Sets the Player::movementSpeed to the movement speed passed into this function.
-	numOfLives = extNumOfLifes;				//Sets the Player::numOfLives to the number of lives passed into this function.
 	scoreToWin = extScoreToWin;				//Sets the Player::scoreToWin to the score needed to win passed into this function.
-	score = 0;								//Sets the starting score to 0.
+
 	scalingValue = sf::Vector2f(1.05f, 1.05f);	//Sets the scaling value used in this class.
 
 	if (!texture.loadFromFile("resources/frogTexture.png"))
@@ -26,18 +26,31 @@ void Player::InstantiatePlayer(sf::Vector2f extWindowDimensions, float extMoveme
 		sprite.setTexture(texture);
 	}
 
+	/*Sets the origin of the sprite once to be the centre of the image.*/
+	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+
+	/*Calls the SetPlayer() function that sets the player attributes*/
+	SetPlayer(extNumOfLifes);
+}
+
+/*Function that sets the score to 0, sets the number of lives to the number of lives
+that were passed in. It also initialises the playerStats strings so that they can be used via UI. It will set
+the player's default size and default position. Called in InstantiateClass, but also called when the game needs
+to be restarted as it will reset the player's attributes, without re-loading windowDimensions or Textures.*/
+void Player::SetPlayer(int extNumOfLifes)
+{
+	numOfLives = extNumOfLifes;		//Sets Player::numOfLives to the number of lives passed into this function.
+	score = 0;						//Sets the starting score to 0.
+
 	/*Initialises the PlayerStats strings so they can be loaded onto the UI
 	before any of them have actually been modified by a collision.*/
 	playerStats.resize(2);
 	playerStats[0] = "Score: " + std::to_string(score) + "/" + std::to_string(scoreToWin);
 	playerStats[1] = "Lives: " + std::to_string(numOfLives);
 
-
-
 	/*Sets the starting position to be the bottom of the screen no matter the resolution*/
-	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-	sprite.setScale((extWindowDimensions.x * 0.00175f), (extWindowDimensions.y * 0.00234f));
-	sprite.setPosition((extWindowDimensions.x / 2), (extWindowDimensions.y * 1.0f));
+	sprite.setScale((windowDimensions.x * 0.00175f), (windowDimensions.y * 0.00234f));
+	sprite.setPosition((windowDimensions.x / 2), (windowDimensions.y * 1.0f));
 }
 
 /*This is the collision function, it will take 3 values, the vehicles, the ending zone and the level bounds.
@@ -106,36 +119,39 @@ std::vector<sf::String> Player::getStats()
 /*Checks for relevant keyboard input via the sf::Event and then moves this current object's sprite by
 movementSpeed accordingly. Avoids constant movement by setting the isKeyDown boolean to false when a key is
 released and to true when a key is pressed and the initial movement has been carried out.*/
-void Player::Movement(sf::Event event)
+void Player::Movement(sf::Event event, bool gameHasFocus)
 {
-	if (event.type == sf::Event::KeyPressed && isKeyDown == false)
+	if (gameHasFocus)
 	{
-		if (event.key.code == sf::Keyboard::Up)
+		if (event.type == sf::Event::KeyPressed && isKeyDown == false)
 		{
-			sprite.move(0, -movementSpeed);
-			sprite.setRotation(0);
-		}
-		else if (event.key.code == sf::Keyboard::Down)
-		{
-			sprite.move(0, movementSpeed);
-			sprite.setRotation(180);
-		}
-		else if (event.key.code == sf::Keyboard::Left)
-		{
-			sprite.move(-movementSpeed, 0);
-			sprite.setRotation(270);
-		}
-		else if (event.key.code == sf::Keyboard::Right)
-		{
-			sprite.move(movementSpeed, 0);
-			sprite.setRotation(90);
-		}
+			if (event.key.code == sf::Keyboard::Up)
+			{
+				sprite.move(0, -movementSpeed);
+				sprite.setRotation(0);
+			}
+			else if (event.key.code == sf::Keyboard::Down)
+			{
+				sprite.move(0, movementSpeed);
+				sprite.setRotation(180);
+			}
+			else if (event.key.code == sf::Keyboard::Left)
+			{
+				sprite.move(-movementSpeed, 0);
+				sprite.setRotation(270);
+			}
+			else if (event.key.code == sf::Keyboard::Right)
+			{
+				sprite.move(movementSpeed, 0);
+				sprite.setRotation(90);
+			}
 
-		isKeyDown = true;
-	}
-	else if (event.type == sf::Event::KeyReleased)
-	{
-		isKeyDown = false;
+			isKeyDown = true;
+		}
+		else if (event.type == sf::Event::KeyReleased)
+		{
+			isKeyDown = false;
+		}
 	}
 }
 
