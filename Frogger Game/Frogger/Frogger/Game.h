@@ -10,7 +10,8 @@ private:
 	//Game states
 	bool GameState_MainMenu;
 	bool GameState_Play;
-	bool GameState_End;
+	bool GameState_EndDeath;
+	bool GameState_EndWin;
 
 	//Components
 	sf::Vector2f windowDimensions;					//Main windowDimensions, used for positional calculations.
@@ -31,12 +32,11 @@ private:
 	void InitializeGame();	//Setup for the level sprite and sprite/window scaling.
 	void MainMenu();		//Creates a panel via UI::CreatePanel and draws it.
 	void RestartGame();		//Resets all objects and stats in the game.
-
+	void GameEnd(sf::String title);
 	//Checks
 	bool gameHasFocus = true;
 
 public:
-
 	//External
 	void StartGame();
 

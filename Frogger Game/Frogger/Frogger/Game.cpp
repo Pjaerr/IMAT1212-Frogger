@@ -72,27 +72,13 @@ void Game::RenderGame()
 				window->draw(vehicle.getSprite()[i]);
 			}
 		}
-		else if (GameState_End)	//If the player has died and the Game state End is active.
+		else if (GameState_EndDeath)	//If the player has died and the Game state End is active.
 		{
-			gameHasFocus = false;
-
-			/*Creates a panel UI similar to in the MainMenu() function, passing in the buttons
-			Replay and Quit. Clicking each will either restart the game or close the window.*/
-			std::vector<sf::String> buttonNames;
-			buttonNames.resize(2);
-			buttonNames[0] = "Replay";
-			buttonNames[1] = "Quit";
-			int buttonPressed = ui.CreatePanel("You lose!", buttonNames, window);
-
-			switch (buttonPressed)
-			{
-			case 0:
-				RestartGame();
-				break;
-			case 1:
-				window->close();
-				break;
-			}
+			GameEnd("You Lose!");
+		}
+		else if (GameState_EndWin)	//If the player has died and the Game state End is active.
+		{
+			GameEnd("You Win!");
 		}
 
 		window->display();
@@ -101,13 +87,40 @@ void Game::RenderGame()
 
 	}
 }
+
+/*Creates a panel UI similar to in the MainMenu() function, passing in the buttons
+Replay and Quit. Clicking each will either restart the game or close the window. It takes
+a title that will be shown as the title of the ending panel UI.*/
+void Game::GameEnd(sf::String title)
+{
+	gameHasFocus = false;
+
+	std::vector<sf::String> buttonNames;
+	buttonNames.resize(2);
+
+	buttonNames[0] = "Replay";
+	buttonNames[1] = "Quit";
+
+	int buttonPressed = ui.CreatePanel(title, buttonNames, window);
+
+	switch (buttonPressed)
+	{
+	case 0:
+		RestartGame();
+		break;
+	case 1:
+		window->close();
+		break;
+	}
+}
 	
 void Game::RestartGame()
 {
 	std::cout << "Game restarted!" << std::endl;
 	player.SetPlayer(3);	//Resets the player's positional, size, and statistical values. Passing in 3 lives.
-	GameState_End = false;	//Closes the end game menu.
+	GameState_EndDeath = false;	//Closes the end game menu.
 	GameState_Play = true;	//Restarts the game.
+	gameHasFocus = true;
 }
 
 /*Any events not specific to rendering go inside of the EventHandling method.
@@ -142,7 +155,12 @@ void Game::EventHandling()
 	if (player.isDead())
 	{
 		GameState_Play = false;
-		GameState_End = true;
+		GameState_EndDeath = true;
+	}
+	else if (player.hasWon())
+	{
+		GameState_Play = false;
+		GameState_EndWin = true;
 	}
 }
 
@@ -156,9 +174,10 @@ void Game::InitializeGame()
 	/*Initializes the game states.*/
 	GameState_MainMenu = true;
 	GameState_Play = false;
-	GameState_End = false;
+	GameState_EndDeath = false;
+	GameState_EndWin = false;
 
-	windowDimensions = sf::Vector2f(1024, 768);	//Initialises the window dimensions.
+	windowDimensions = sf::Vector2f(1600, 900);	//Initialises the window dimensions.
 
 	ui.InitializeUI(windowDimensions, "04b30.ttf");			 //Starts the UI class with the font 04b30.ttf and the window dimensions.
 	vehicle.InstantiateVehicle(windowDimensions, 24, 4);	 //Starts the vehicle class with 24 sprites, 4 textures and passes in the window dimensions.

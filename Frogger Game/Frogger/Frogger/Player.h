@@ -6,7 +6,6 @@
 class Player
 {
 private:
-
 	//Objects
 	sf::Vector2f windowDimensions;			//Local windowDimensions.
 	sf::Texture texture;					//Global texture that is assigned to sprite on PlayerInstantiation() call.
@@ -43,7 +42,7 @@ public:
 	void Movement(sf::Event event, bool gameHasFocus);	//Moves the player when called. Requires an sf::Event event to check for input.
 
 	/*Checks for collision between the Player, vehicles, ending zone or level boundaries.*/
-	void Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd, std::vector<sf::RectangleShape> levelBounds);	
+	void Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd, std::vector<sf::RectangleShape> levelBounds);
 	
 };
 

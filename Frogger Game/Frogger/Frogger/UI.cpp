@@ -84,12 +84,12 @@ int UI::CreatePanel(sf::String panelTitle, std::vector<sf::String> buttonNames, 
 		}
 
 		/*Sets the button's size and position.*/
-		buttons[i] = sf::RectangleShape(sf::Vector2f(140, 40));
+		buttons[i] = sf::RectangleShape(sf::Vector2f((WindowDimensions.x * 0.1f), (WindowDimensions.x * 0.025f)));
 		buttons[i].setPosition((WindowDimensions.x * 0.45f), (WindowDimensions.y * yPos));
 
 		/*Initialises the text to the strings passed in and positions it on top of the buttons.*/
 		buttonText[i] = sf::Text(buttonNames[i], font, 24);
-		buttonText[i].setPosition((WindowDimensions.x * 0.47f), (WindowDimensions.y * (yPos + 0.01f)));
+		buttonText[i].setPosition((WindowDimensions.x * 0.47f), (WindowDimensions.y * yPos));
 		buttonText[i].setColor(sf::Color::Black);
 
 		/*Drawing all relevant objects.*/
@@ -101,12 +101,12 @@ int UI::CreatePanel(sf::String panelTitle, std::vector<sf::String> buttonNames, 
 	/*Creates a FloatRect that follows the mouse around, then checks if the FloatRect is intersecting with a button and if the mouse
 	is left clicking. If those values are true, this function will return the number (in order of the buttonNames passed in) of the
 	button that has been clicked, allowing actions to be carried out, outside of the UI class.*/
-	sf::RectangleShape mouseRect(sf::Vector2f(20, 20));
-	mouseRect.setPosition(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
+	sf::FloatRect mouseRect(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y, 20, 20);
+	//mouseRect.setPosition(sf::Mouse::getPosition(*window).x, sf::Mouse::getPosition(*window).y);
 
 	for (int i = 0; i < buttons.size(); i++)
 	{
-		if (mouseRect.getGlobalBounds().intersects(buttons[i].getGlobalBounds()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		if (mouseRect.intersects(buttons[i].getGlobalBounds()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 		{
 			return i;
 		}

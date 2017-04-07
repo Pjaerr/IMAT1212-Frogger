@@ -58,6 +58,7 @@ If the player's bounds intersect with either of the objects bounds, it will regi
 a collision and an action relative to that collision can be carried out.*/
 void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape levelEnd, std::vector<sf::RectangleShape> levelBounds)
 {
+	/*Check if the player has collided with any of the vehicles.*/
 	for (int i = 0; i < vehicles.size(); i++)
 	{
 		if (sprite.getGlobalBounds().intersects(vehicles[i].getGlobalBounds()))
@@ -104,9 +105,7 @@ void Player::Collision(std::vector<sf::Sprite> vehicles, sf::RectangleShape leve
 				}
 			}
 		}
-
 	}
-
 }
 
 /*Returns the player's stats (lives, score) as strings so that they can be passed into the 
