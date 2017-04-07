@@ -53,12 +53,11 @@ void Game::RenderGame()
 
 		if (GameState_MainMenu) //If the game state is currently Main Menu.
 		{
-			gameHasFocus = false;
+			//gameHasFocus = false;
 			MainMenu();
 		}
 		else if (GameState_Play)	//If the Main menu has been exited, and the game state is currently Play.
 		{
-			gameHasFocus = true;
 
 			window->draw(level);				//Draws the level sprite from Game.h
 			window->draw(player.getSprite());	//Draws the returned sprite from the player.
@@ -122,14 +121,15 @@ void Game::EventHandling()
 		{
 			window->close();
 		}
-		//NOTE TO SELF* Once assignment is finished, see about events being on a separate thread, to avoid window freezes when moved.
 		else if (event.type == sf::Event::LostFocus)
 		{
 			gameHasFocus = false;
+			std::cout << "Game doesn't have focus" << std::endl;
 		}
 		else if (event.type == sf::Event::GainedFocus)
 		{
 			gameHasFocus = true;
+			std::cout << "Game has focus" << std::endl;
 		}
 	}
 

@@ -39,7 +39,7 @@ void Vehicle::Movement(bool gameHasFocus)
 	assigns it as seconds to a float deltaTime. This acts as the time elapsed in
 	the previous frame.*/
 	sf::Time dt = clock.restart();
-	float deltaTime;
+	float deltaTime = 0;
 
 	/*If the window has focus, set deltaTime to the last restarted frame. If not, set deltaTime
 	to 0, thus stopping the cars from moving.*/
