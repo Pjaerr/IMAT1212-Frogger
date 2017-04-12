@@ -7,6 +7,7 @@ void UI::InitializeUI(sf::Vector2f windowDimensions, sf::String fontName)
 	//04b30.ttf from DaFont.com.
 	font.loadFromFile("resources/fonts/" + fontName);
 	WindowDimensions = windowDimensions;
+	textSize = (int)(WindowDimensions.y * 0.02f); //Makes sure that the size of text scales to the resolution.
 }
 
 UI::UI()
@@ -20,7 +21,7 @@ UI::~UI()
 /*Takes the strings passed in and assigns them to sf::Text elements that are then sized, placed
 and drawn onto the screen. The xPosition of the Text elements are decided by their order. First element
 goes onto the far left, second far right etc.*/
-void UI::CreateHUD(std::vector<sf::String> elements, int textSize, sf::RenderWindow *window)
+void UI::CreateHUD(std::vector<sf::String> elements, sf::RenderWindow *window)
 {
 	float xPos;	//The position on which the elements will be placed.
 
@@ -57,7 +58,7 @@ int UI::CreatePanel(sf::String panelTitle, std::vector<sf::String> buttonNames, 
 {
 	float yPos;	//The position on which the elements will be placed.
 
-	sf::Text title(panelTitle, font, 32);											//Sets the title to the string passed in.
+	sf::Text title(panelTitle, font, (textSize + 8));											//Sets the title to the string passed in.
 	title.setPosition((WindowDimensions.x * 0.42f), (WindowDimensions.y * 0.2f));	//Sets the position of the title to be the top center.	
 
 	std::vector<sf::RectangleShape> buttons;	//Creates vector of rectangles, used as buttons.
@@ -83,13 +84,15 @@ int UI::CreatePanel(sf::String panelTitle, std::vector<sf::String> buttonNames, 
 			yPos = 0.9f;
 		}
 
+
+		
 		/*Sets the button's size and position.*/
-		buttons[i] = sf::RectangleShape(sf::Vector2f((WindowDimensions.x * 0.1f), (WindowDimensions.x * 0.025f)));
+		buttons[i] = sf::RectangleShape(sf::Vector2f((WindowDimensions.x * 0.1f), (WindowDimensions.y * 0.04f)));
 		buttons[i].setPosition((WindowDimensions.x * 0.45f), (WindowDimensions.y * yPos));
 
 		/*Initialises the text to the strings passed in and positions it on top of the buttons.*/
-		buttonText[i] = sf::Text(buttonNames[i], font, 24);
-		buttonText[i].setPosition((WindowDimensions.x * 0.47f), (WindowDimensions.y * yPos));
+		buttonText[i] = sf::Text(buttonNames[i], font, textSize);
+		buttonText[i].setPosition((WindowDimensions.x * 0.47f), (WindowDimensions.y * (yPos + 0.01f)));
 		buttonText[i].setColor(sf::Color::Black);
 
 		/*Drawing all relevant objects.*/

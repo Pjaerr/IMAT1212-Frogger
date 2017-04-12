@@ -64,7 +64,7 @@ void Game::RenderGame()
 				
 			/*Draws a HUD created using the UI::CreateHUD method. It passes in the
 			player's stats (as a vector), the font size 20 and the window*/
-			ui.CreateHUD(player.getStats(), 20, window); 
+			ui.CreateHUD(player.getStats(), window); 
 
 			/*Draws all of the vehicle's sprites from the Sprite[] array.*/
 			for (int i = 0; i < vehicle.getSprite().size(); i++)
@@ -177,11 +177,11 @@ void Game::InitializeGame()
 	GameState_EndDeath = false;
 	GameState_EndWin = false;
 
-	windowDimensions = sf::Vector2f(1600, 900);	//Initialises the window dimensions.
+	windowDimensions = sf::Vector2f(1024, 768);	//Initialises the window dimensions.
 
 	ui.InitializeUI(windowDimensions, "04b30.ttf");			 //Starts the UI class with the font 04b30.ttf and the window dimensions.
 	vehicle.InstantiateVehicle(windowDimensions, 24, 4);	 //Starts the vehicle class with 24 sprites, 4 textures and passes in the window dimensions.
-	player.InstantiateClass(windowDimensions, 45.0f, 3, 5); //Starts the player class with 45 movement speed, 3 lifes and passes in the window dimensions and scoretoWin.
+	player.InstantiateClass(windowDimensions, 3, 5); //Starts the player class with 45 movement speed, 3 lifes and passes in the window dimensions and scoretoWin.
 
 	if (!levelTexture.loadFromFile("resources/levelTexture.png"))
 	{

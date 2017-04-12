@@ -10,10 +10,11 @@ Player::~Player()
 
 /*Initializes the player class. Takes in window dimensions, movement speed, number of lives and the max score needed to win.
 These passed in values are then assigned to be used locally.*/
-void Player::InstantiateClass(sf::Vector2f extWindowDimensions, float extMovementSpeed, int extNumOfLifes, int extScoreToWin)
+void Player::InstantiateClass(sf::Vector2f extWindowDimensions, int extNumOfLifes, int extScoreToWin)
 {
 	windowDimensions = extWindowDimensions;	//Sets the Player::windowDimensions to the window dimensions passed into this function.
-	movementSpeed = extMovementSpeed;		//Sets the Player::movementSpeed to the movement speed passed into this function.
+	movementSpeedX = (windowDimensions.x * 0.044f);	//Sets the Player::movementSpeedX to the movement speed as per window resolution.
+	movementSpeedY = (windowDimensions.y * 0.0586f);	//Sets the Player::movementSpeedY to the movement speed as per window resolution.
 	scoreToWin = extScoreToWin;				//Sets the Player::scoreToWin to the score needed to win passed into this function.
 
 	scalingValue = sf::Vector2f(1.05f, 1.05f);	//Sets the scaling value used in this class.
@@ -126,22 +127,22 @@ void Player::Movement(sf::Event event, bool gameHasFocus)
 		{
 			if (event.key.code == sf::Keyboard::Up)
 			{
-				sprite.move(0, -movementSpeed);
+				sprite.move(0, -movementSpeedY);
 				sprite.setRotation(0);
 			}
 			else if (event.key.code == sf::Keyboard::Down)
 			{
-				sprite.move(0, movementSpeed);
+				sprite.move(0, movementSpeedY);
 				sprite.setRotation(180);
 			}
 			else if (event.key.code == sf::Keyboard::Left)
 			{
-				sprite.move(-movementSpeed, 0);
+				sprite.move(-movementSpeedX, 0);
 				sprite.setRotation(270);
 			}
 			else if (event.key.code == sf::Keyboard::Right)
 			{
-				sprite.move(movementSpeed, 0);
+				sprite.move(movementSpeedX, 0);
 				sprite.setRotation(90);
 			}
 

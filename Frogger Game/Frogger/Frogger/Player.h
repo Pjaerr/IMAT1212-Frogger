@@ -13,7 +13,8 @@ private:
 	std::vector<sf::String> playerStats;	//The stats of the player as strings.
 
 	//Attributes
-	float movementSpeed;		//Movement speed is the distance moved when a movement key is pressed.
+	float movementSpeedX;		//The distance moved when on the X axis when a movement key is pressed.
+	float movementSpeedY;		//The distance moved when on the Y axis when a movement key is pressed.
 	int numOfLives;				//Number of lives the player has. Initialized in the constructor.
 	int score;					//Score, incremented when player hits the level end zone.
 	int scoreToWin;				//The score needed to be reached in order to win.
@@ -29,7 +30,7 @@ public:
 	~Player();
 
 	/*Called when creating the player, to pass in the required variables/objects*/
-	void InstantiateClass(sf::Vector2f windowDimensions, float movementSpeed, int numOfLifes, int scoreToWin);
+	void InstantiateClass(sf::Vector2f windowDimensions, int extNumOfLifes, int extScoreToWin);
 	void SetPlayer(int extNumOfLifes);
 	
 	//Returning
