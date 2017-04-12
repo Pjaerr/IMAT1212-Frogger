@@ -1,7 +1,1 @@
-﻿cl : Command line warning D9007: '/Gm' requires '/Zi or /ZI'; option ignored
-  Game.cpp
-Game.cpp(46): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
-Game.cpp(70): warning C4018: '<': signed/unsigned mismatch
-Game.cpp(199): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-Game.cpp(204): warning C4018: '<': signed/unsigned mismatch
-  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe
+﻿  Frogger.vcxproj -> C:\Users\Pjaer\Desktop\IMAT1212-Frogger\Frogger Game\Frogger\Debug\Frogger.exe
